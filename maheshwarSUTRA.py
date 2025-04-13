@@ -2,37 +2,36 @@ import streamlit as st
 import random
 import time
 from streamlit_extras.let_it_rain import rain
-from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie 
 import json
-import requests
 
 # ✅ MUST BE THE FIRST STREAMLIT COMMAND
-st.set_page_config(page_title="📚 महेश्वर सूत्र - Memory Flip", layout="centered")
+st.set_page_config(page_title="📚 महेश्वर सूत्र - Memory Flip", layout="centered", initial_sidebar_state="collapsed")
 
-# Load Lottie animations
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+# ========== CONSTANTS ==========
+SANSKRIT_MESSAGES = {
+    "welcome": "स्वागतम्! महेश्वरसूत्राणां स्मरणपरीक्षायां प्रवर्तस्व!",
+    "card_info": "एमोजी-रूपेण कार्डाः आवृताः सन्ति!",
+    "correct": "साधु! उत्तमम्!",
+    "wrong": "क्षम्यताम्! सही उत्तरम्: {}",
+    "level_up": "अभिनन्दनम्! नूतनं स्तरं प्राप्तम्!",
+    "instructions": """
+    १. अक्षराणि "३" सेकण्डपर्यन्त पश्यतु \n
+    २. एमोजी-रूपेण गूढेषु कार्डेषु सही अक्षरं/सूत्रं चिनुतु  \n
+    ३. सही उत्तरैः नूतनः स्तरः प्राप्यते \n
+    """,
+    "reset": "पुनः प्रारभ्यताम्!",
+    "start_game": "क्रीडां प्रारभताम्!"
+}
 
-# Animation URLs
-celebration_anim = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json")
-thinking_anim = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_uqfbsoei.json")
-welcome_anim = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json")
+EMOJI_CARDS = ["🦊","🐱","🫎","🦇","🦉","🐥","🐢","🪼","🐙","🦑","🐡","🐠",
+               "🐟","🐬","🐳","🐋","🦈","🐅","🐆","🦧","🐘","🐂","🐄","🐿️",
+               "🐦‍🔥","🐚","☀️","🪁","🪂","🏹","🤹🏻‍♀️","🎮","🪈","🏎️","🏍️",
+               "🚔","🚖","🚀","🛸","🚁","🚤","⛴️","🎡","🎠","🏰","🛕","🔫",
+               "🔭","🔬","🙈","🙉","🙊"]
 
-# Sound effects (using HTML audio)
-def play_sound(sound_type):
-    audio_html = ""
-    if sound_type == "correct":
-        audio_html = """<audio autoplay><source src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>"""
-    elif sound_type == "wrong":
-        audio_html = """<audio autoplay><source src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>"""
-    elif sound_type == "level_up":
-        audio_html = """<audio autoplay><source src="https://www.soundjay.com/buttons/sounds/button-21.mp3"></audio>"""
-    st.components.v1.html(audio_html, height=0)
+COLOR_OPTIONS = ["#d63384", "#6f42c1", "#0d6efd", "#198754", "#fd7e14", "#dc3545"]
 
-# Maheshwar Sutra sequence
 sutra_sequence = [ 
     ["अ", "इ", "उ", "ण्"],
     ["ऋ", "ऌ", "क्"],
@@ -50,239 +49,441 @@ sutra_sequence = [
     ["ह", "ल्"]
 ]
 
-# Flatten the sequence
-flat_sutra_sequence = [letter for sublist in sutra_sequence for letter in sublist]
+flat_sutra_sequence = ["अ", "इ", "उ", "ण्", "ऋ", "ऌ", "क्", "ए", "ओ", "ङ्", 
+                      "ऐ", "औ", "च्", "ह", "य", "व", "र", "ट्", "ल", "ण्", 
+                      "ञ", "म", "ङ", "ण", "न", "म्", "झ", "भ", "ञ्", "घ", 
+                      "ढ", "ध", "ष्", "ज", "ब", "ग", "ड", "द", "श्", "ख", 
+                      "फ", "छ", "ठ", "थ", "च", "ट", "त", "व्", "क", "प", 
+                      "य्", "श", "ष", "स", "र्", "ह", "ल्"]
 
-# CSS Styles
-st.markdown("""
-    <style>
-    .big-font {
-        font-size:30px !important;
-        color: #d63384;
-        font-weight: bold;
+# ========== HELPER FUNCTIONS ==========
+def load_lottie_file(filepath):
+    try:
+        with open(filepath, "r") as f:
+            return json.load(f)
+    except:
+        return None
+
+def initialize_session_state():
+    defaults = {
+        'game_started': False,
+        'show_settings': False,
+        'score': 0,
+        'level': 1,
+        'streak': 0,
+        'max_streak': 0,
+        'question_count': 0,
+        'current_letter_index': random.randint(0, len(flat_sutra_sequence)-1),
+        'current_sutra_index': random.randint(0, len(sutra_sequence)-1),
+        'options': [],
+        'selected': None,
+        'show_letters': False,
+        'current_mode': "letter",
+        'direction': "forward",
+        'difficulty': "medium",
+        'current_color': random.choice(COLOR_OPTIONS),
+        'current_emojis': random.sample(EMOJI_CARDS, 4)
     }
-    .card-button {
-        font-size: 26px;
-        padding: 1rem;
-        border-radius: 10px;
-        margin: 0.5rem;
-        border: 2px solid #6c757d;
-        background-color: #f8f9fa;
-        transition: all 0.3s ease;
-    }
-    .card-button:hover {
-        background-color: #ffc107;
-        transform: scale(1.05);
-        cursor: pointer;
-    }
-    .question-box {
-        background-color: #fff3cd;
-        padding: 20px;
-        border-radius: 10px;
-        border: 2px solid #ffeeba;
-        margin: 20px 0;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .score-display {
-        font-size: 24px;
-        color: #28a745;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .progress-bar {
-        height: 10px;
-        background-color: #e9ecef;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-    .progress {
-        height: 100%;
-        background-color: #28a745;
-        border-radius: 5px;
-        transition: width 0.5s ease;
-    }
-    </style>
-""", unsafe_allow_html=True)
+    
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
-# Initialize session state
-if 'current_index' not in st.session_state:
-    st.session_state.current_index = random.randint(0, len(sutra_sequence) - 2)
-if 'options' not in st.session_state:
-    st.session_state.options = []
-if 'selected' not in st.session_state:
-    st.session_state.selected = None
-if 'score' not in st.session_state:
-    st.session_state.score = 0
-if 'level' not in st.session_state:
-    st.session_state.level = 1
-if 'usage_count' not in st.session_state:
-    st.session_state.usage_count = 0
-if 'streak' not in st.session_state:
-    st.session_state.streak = 0
-if 'max_streak' not in st.session_state:
-    st.session_state.max_streak = 0
+def reset_game():
+    for key in list(st.session_state.keys()):
+        del st.session_state[key]
+    initialize_session_state()
+    st.rerun()
 
-# Welcome animation
-if st.session_state.level == 1 and st.session_state.score == 0:
-    st_lottie(welcome_anim, speed=1, height=200, key="welcome")
+def get_next_question():
+    st.session_state.current_color = random.choice(COLOR_OPTIONS)
+    st.session_state.current_emojis = random.sample(EMOJI_CARDS, 4)
+    
+    if st.session_state.current_mode == "letter":
+        current_idx = random.randint(0, len(flat_sutra_sequence)-1)
+        current_letter = flat_sutra_sequence[current_idx]
+        
+        if st.session_state.direction == "forward":
+            next_idx = current_idx + 1 if current_idx + 1 < len(flat_sutra_sequence) else 0
+            correct_answer = flat_sutra_sequence[next_idx]
+            question_text = f"{current_letter} इत्यस्य अनन्तरं किम् अक्षरम् आगच्छति?"
+        else:
+            next_idx = current_idx - 1 if current_idx > 0 else len(flat_sutra_sequence)-1
+            correct_answer = flat_sutra_sequence[next_idx]
+            question_text = f"{current_letter} इत्यस्य पूर्वं किम् अक्षरम् आसीत्?"
+        
+        return current_letter, correct_answer, question_text, "letter"
+    else:
+        current_idx = random.randint(0, len(sutra_sequence)-1)
+        current_sutra = sutra_sequence[current_idx]
+        
+        if st.session_state.direction == "forward":
+            next_idx = current_idx + 1 if current_idx + 1 < len(sutra_sequence) else 0
+            correct_answer = sutra_sequence[next_idx]
+            question_text = f"{' '.join(current_sutra)} इत्यस्य अनन्तरं किम् सूत्रम् आगच्छति?"
+        else:
+            next_idx = current_idx - 1 if current_idx > 0 else len(sutra_sequence)-1
+            correct_answer = sutra_sequence[next_idx]
+            question_text = f"{' '.join(current_sutra)} इत्यस्य पूर्वं किम् सूत्रम् आसीत्?"
+        
+        return current_sutra, correct_answer, question_text, "sutra"
 
-# 🎯 Game title
-st.title("🧠 महेश्वर सूत्र - Memory Flip Challenge")
-st.markdown(f"### 🌟 स्तर {st.session_state.level}")
-
-# Progress bar
-progress = min((st.session_state.score % 3) / 3 * 100, 100)
-st.markdown(f"""
-    <div class="progress-bar">
-        <div class="progress" style="width: {progress}%"></div>
-    </div>
-    <div class="score-display">
-        स्कोर: {st.session_state.score} | स्ट्रीक: {st.session_state.streak} (उच्चतम: {st.session_state.max_streak})
-    </div>
-""", unsafe_allow_html=True)
-
-# Determine which sequence to use
-if st.session_state.usage_count < 10:
-    current_sequence = flat_sutra_sequence
-else:
-    current_sequence = sutra_sequence
-
-# Increment usage count and reset after 20 uses
-st.session_state.usage_count += 1
-if st.session_state.usage_count >= 20:
-    st.session_state.usage_count = 0
-
-# Update current and next letters
-try:
-    if isinstance(current_sequence[0], list):  # Original sequence
-        current_letter = current_sequence[st.session_state.current_index][0]
-        next_letter = current_sequence[st.session_state.current_index + 1][0]
-    else:  # Flat sequence
-        current_letter = current_sequence[st.session_state.current_index]
-        next_letter = current_sequence[st.session_state.current_index + 1]
-except IndexError:
-    st.error("❌ अक्षर अनुक्रम समाप्त हो गया है।")
-    st.stop()
-
-# Generate options
-def generate_options():
-    if isinstance(current_sequence[0], list):  # Nested sequence
-        future_letters = [
-            letter for group in current_sequence[st.session_state.current_index + 1:]
-            for letter in group if letter != next_letter
-        ]
-    else:  # Flat sequence
-        future_letters = [
-            letter for letter in current_sequence[st.session_state.current_index + 1:]
-            if letter != next_letter
-        ]
-
-    options = [next_letter]
-    while len(options) < 4 and future_letters:
-        rand = random.choice(future_letters)
-        if rand not in options:
-            options.append(rand)
-
-    while len(options) < 4:
-        rand = random.choice(flat_sutra_sequence if not isinstance(current_sequence[0], list) 
-                        else [l for group in current_sequence for l in group])
-        if rand not in options:
-            options.append(rand)
-
+def generate_options(correct_answer, mode):
+    options = [correct_answer]
+    
+    if mode == "letter":
+        pool = flat_sutra_sequence.copy()
+    else:
+        pool = sutra_sequence.copy()
+        if correct_answer in pool:
+            pool.remove(correct_answer)
+    
+    num_options = 4
+    if st.session_state.difficulty == "easy":
+        num_options = 3
+    elif st.session_state.difficulty == "hard":
+        num_options = 6
+    
+    while len(options) < num_options and pool:
+        if mode == "letter":
+            rand = random.choice(pool)
+            if rand not in options:
+                options.append(rand)
+            pool.remove(rand)
+        else:
+            rand = random.choice(pool)
+            if rand not in options:
+                options.append(rand)
+            pool.remove(rand)
+    
     random.shuffle(options)
-    return options, current_letter, next_letter
+    return options
 
-# Question box
-st.markdown(f"""
-<div class="question-box">
-    <div class="big-font">🔍 <span style='color:green;'>{current_letter}</span> के बाद के 1 अक्षर चुनें:</div>
-</div>
-""", unsafe_allow_html=True)
+# ========== PAGE LAYOUTS ==========
+def show_start_page():
+    st.title("🪶 📚 🪶 महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
+    
+    welcome_anim = load_lottie_file("welcome_animation.json")  # Replace with your file
+    if welcome_anim:
+        st_lottie(welcome_anim, speed=1, height=300, key="welcome")
+    
 
-# Display cards
-if not st.session_state.options:
-    st.session_state.options, current_letter, next_letter = generate_options()
-    st.session_state.current_letter = current_letter
-    st.session_state.next_letter = next_letter
-    show_letters = True
-else:
-    current_letter = st.session_state.get("current_letter", "")
-    next_letter = st.session_state.get("next_letter", "")
-    show_letters = False
+    st.markdown(
+        """
+        <div style='display: flex; justify-content: center; align-items: center; height: 20vh;'>
+            <h1 style='font-size: 100px;'>🕉️</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+        
 
-if show_letters:
-    with st.spinner("🧠 याद करें... 5 सेकंड में कार्ड छुप जाएंगे"):
-        st_lottie(thinking_anim, speed=1, height=150, key="thinking")
-        cols = st.columns(4)
+    st.markdown(f"""
+        <div style="text-align: center; margin: 2rem 0;">
+            <h3>{SANSKRIT_MESSAGES['welcome']}</h3>
+            <p style="font-size: 1.1rem;">{SANSKRIT_MESSAGES['instructions']}</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button(f"🎮 {SANSKRIT_MESSAGES['start_game']}", use_container_width=True):
+            st.session_state.game_started = True
+            st.rerun()
+    
+    with st.expander("⚙️ सेटिङ्ग्स्", expanded=False):
+        st.session_state.difficulty = st.selectbox(
+            "कठिनतास्तरः",
+            ["easy", "medium", "hard"],
+            index=["easy", "medium", "hard"].index(st.session_state.difficulty)
+        )
+        st.session_state.show_settings = st.checkbox("सेटिङ्ग्स् सदैव दृश्यताम्", value=False)
+
+def show_game_page():
+    # CSS Styles
+    st.markdown(f"""
+        <style>
+        .big-font {{
+            font-size:30px !important;
+            color: {st.session_state.current_color};
+            font-weight: bold;
+        }}
+        # .card-container {{
+        #     display: flex;
+        #     justify-content: center;
+        #     gap: 1rem;
+        #     margin: 1rem 0;
+        #     flex-wrap: wrap;
+        # }}
+        .card {{
+            font-size: 52px;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 0.5rem;
+            border: 3px solid #6c757d;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }}
+        
+        /* Ensure columns don't wrap */
+        [data-testid="column"] {{
+            min-width: 120px;
+        }}
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {{
+            .card {{
+                font-size: 42px;
+                padding: 1rem;
+                min-width: 80px;
+                height: 100px;
+            }}
+            [data-testid="column"] {{
+                min-width: 100px;
+            }}
+        }}
+        .card:hover {{
+            background-color: #ffc107;
+            transform: scale(1.05);
+        }}
+        .question-box {{
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ffeeba;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+        .progress-bar {{
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }}
+        .progress {{
+            height: 100%;
+            background-color: #28a745;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }}
+        .difficulty-badge {{
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            margin-left: 5px;
+        }}
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Header
+    st.title("🧠 महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
+    st.markdown(f"### 🌟 स्तरः {st.session_state.level} <span class='difficulty-badge' style='background-color: {'#dc3545' if st.session_state.difficulty == 'hard' else ('#fd7e14' if st.session_state.difficulty == 'medium' else '#28a745')}; color: white;'>{st.session_state.difficulty.upper()}</span>", unsafe_allow_html=True)
+
+    # Progress
+    progress = min((st.session_state.score % 3) / 3 * 100, 100)
+    st.markdown(f"""
+        <div class="progress-bar">
+            <div class="progress" style="width: {progress}%"></div>
+        </div>
+        <div style="font-size: 24px; color: #28a745; font-weight: bold; margin-bottom: 20px;">
+            अङ्काः: {st.session_state.score} | अनुक्रमः: {st.session_state.streak} (उच्चतमः: {st.session_state.max_streak})
+        </div>
+        <div style="font-size: 18px; color: #6c757d; margin-bottom: 15px; font-style: italic;">
+            {SANSKRIT_MESSAGES['card_info']}
+        </div>
+    """, unsafe_allow_html=True)
+
+    # Determine question mode
+    st.session_state.current_mode = "letter" if st.session_state.question_count % 10 != 0 else "sutra"
+    if st.session_state.question_count % 3 == 0:
+        st.session_state.direction = random.choice(["forward", "reverse"])
+
+    # Get question if none exists
+    if not st.session_state.options:
+        current, correct, question_text, mode = get_next_question()
+        st.session_state.current_item = current
+        st.session_state.correct_answer = correct
+        st.session_state.question_text = question_text
+        st.session_state.options = generate_options(correct, mode)
+        st.session_state.show_letters = True
+
+    # Question display
+    highlight_color = "#dc3545"
+    question_parts = st.session_state.question_text
+
+    if st.session_state.current_mode == "letter":
+        target_letter = st.session_state.current_item
+        if st.session_state.direction == "forward":
+            question_parts = question_parts.replace(
+                f"{target_letter} इत्यस्य", 
+                f"<span style='color:{highlight_color}; font-size: 36px; font-weight:bold;'>{target_letter}</span> इत्यस्य"
+            )
+        else:
+            question_parts = question_parts.replace(
+                f"{target_letter} इत्यस्य", 
+                f"<span style='color:{highlight_color}; font-size: 36px; font-weight:bold;'>{target_letter}</span> इत्यस्य"
+            )
+    elif st.session_state.current_mode == "sutra":
+        current_sutra = st.session_state.current_item
+        if isinstance(current_sutra, list):
+            joined_sutra = ' '.join(current_sutra)
+            question_parts = question_parts.replace(
+                joined_sutra, 
+                f"<span style='color:{highlight_color}; font-size: 36px; font-weight:bold;'>{joined_sutra}</span>"
+            )
+
+    st.markdown(f"""
+        <div class="question-box">
+            <div class="big-font" style='font-size: 36px;'>🔍 {question_parts}</div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # # Cards display
+    # if st.session_state.show_letters:
+    #     with st.spinner("🧠 स्मरतु... ३ सेकण्डेषु कार्डाः अदृश्याः भविष्यन्ति"):
+    #         st.markdown('<div class="card-container">', unsafe_allow_html=True)
+    #         for i, option in enumerate(st.session_state.options):
+    #             display_text = ' '.join(option) if isinstance(option, list) else option
+    #             font_size = "28px" if isinstance(option, list) else "52px"
+    #             st.markdown(f"""
+    #                 <div class="card" style="font-size: {font_size};">
+    #                     {display_text}
+    #                 </div>
+    #             """, unsafe_allow_html=True)
+    #         st.markdown('</div>', unsafe_allow_html=True)
+    #         time.sleep(3)
+    #         st.session_state.show_letters = False
+    #         st.rerun()
+    # else:
+    #     st.markdown('<div class="card-container">', unsafe_allow_html=True)
+    #     for i, emoji in enumerate(st.session_state.current_emojis[:len(st.session_state.options)]):
+    #         st.markdown(f"""
+    #             <div class="card">
+    #                 {emoji}
+    #             </div>
+    #         """, unsafe_allow_html=True)
+    #         # Invisible button overlay
+    #         if st.button("Select", key=f"option_{i}"):
+    #             st.session_state.selected = st.session_state.options[i]
+    #             st.session_state.question_count += 1
+    #             st.rerun()
+    #     st.markdown('</div>', unsafe_allow_html=True)
+
+    # # In the show_game_page() function, replace the cards display section with:
+
+    # Cards display - Horizontal Layout
+    if st.session_state.show_letters:
+        with st.spinner("🧠 स्मरतु... ३ सेकण्डेषु कार्डाः अदृश्याः भविष्यन्ति"):
+            cols = st.columns(len(st.session_state.options))  # Create columns based on number of options
+            for i, col in enumerate(cols):
+                with col:
+                    option = st.session_state.options[i]
+                    display_text = ' '.join(option) if isinstance(option, list) else option
+                    font_size = "28px" if isinstance(option, list) else "52px"
+                    st.markdown(f"""
+                        <div class="card" style="font-size: {font_size};">
+                            {display_text}
+                        </div>
+                    """, unsafe_allow_html=True)
+            time.sleep(3)
+            st.session_state.show_letters = False
+            st.rerun()
+    else:
+        cols = st.columns(len(st.session_state.options))  # Create columns based on number of options
         for i, col in enumerate(cols):
             with col:
-                st.markdown(f"<button class='card-button'>{st.session_state.options[i]}</button>", 
-                           unsafe_allow_html=True)
-        time.sleep(5)
-        st.rerun()
-else:
-    cols = st.columns(4)
-    for i, col in enumerate(cols):
-        with col:
-            if st.button(f"कार्ड {i+1}"):
-                st.session_state.selected = st.session_state.options[i]
-
-# Handle answer selection
-if st.session_state.selected:
-    if st.session_state.selected == st.session_state.next_letter:
-        st.session_state.streak += 1
-        if st.session_state.streak > st.session_state.max_streak:
-            st.session_state.max_streak = st.session_state.streak
+                emoji = st.session_state.current_emojis[i % len(st.session_state.current_emojis)]
+                st.markdown(f"""
+                    <div class="card">
+                        {emoji}
+                    </div>
+                """, unsafe_allow_html=True)
+                # Invisible button overlay
+                if st.button("Select", key=f"option_{i}"):
+                    st.session_state.selected = st.session_state.options[i]
+                    st.session_state.question_count += 1
+                    st.rerun()
+    
+    # Answer handling
+    if st.session_state.selected:
+        if st.session_state.selected == st.session_state.correct_answer:
+            st.session_state.streak += 1
+            if st.session_state.streak > st.session_state.max_streak:
+                st.session_state.max_streak = st.session_state.streak
             
-        st.success("🎉 सही उत्तर!")
-        play_sound("correct")
-        st_lottie(celebration_anim, speed=1, height=200, key="celebrate")
-        st.balloons()
-        
-        st.session_state.score += 1
-        if st.session_state.score % 3 == 0:
-            play_sound("level_up")
-            rain(emoji="🏅", font_size=54, falling_speed=5, animation_length="infinite")
-            st.session_state.level += 1
-        
-        time.sleep(2)
-        # Reset for next round
-        st.session_state.current_index = random.randint(0, len(sutra_sequence) - 2)
-        st.session_state.options = []
-        st.session_state.selected = None
-        st.rerun()
-    else:
-        st.session_state.streak = 0
-        st.error("❌ गलत उत्तर! फिर कोशिश करें।")
-        play_sound("wrong")
-        st.session_state.options = []
-        st.session_state.selected = None
-        time.sleep(2)
-        st.rerun()
+            st.success(f"🎉 {SANSKRIT_MESSAGES['correct']}")
+            st.balloons()
+            
+            st.session_state.score += 1
+            if st.session_state.score % 3 == 0:
+                rain(emoji="🏅", font_size=54, falling_speed=5, animation_length="infinite")
+                st.session_state.level += 1
+            
+            time.sleep(2)
+            st.session_state.options = []
+            st.session_state.selected = None
+            st.session_state.show_letters = False
+            st.rerun()
+        else:
+            st.session_state.streak = 0
+            correct_display = ' '.join(st.session_state.correct_answer) if isinstance(st.session_state.correct_answer, list) else st.session_state.correct_answer
+            st.error(SANSKRIT_MESSAGES['wrong'].format(correct_display))
+            st.session_state.options = []
+            st.session_state.selected = None
+            st.session_state.show_letters = False
+            time.sleep(2)
+            st.rerun()
 
-# Sidebar with additional info
-with st.sidebar:
-    st.markdown("### 📜 महेश्वर सूत्र")
-    for sutra in sutra_sequence:
-        st.markdown(f"**{' '.join(sutra)}**")
-    
-    st.markdown("---")
-    st.markdown("### 🎮 गेम निर्देश")
-    st.markdown("""
-    1. अक्षरों को 5 सेकंड के लिए देखें
-    2. कार्ड छुपने के बाद सही अक्षर चुनें
-    3. 3 सही उत्तरों पर नया स्तर प्राप्त करें
-    """)
-    
-    if st.button("🔁 गेम रीसेट करें"):
-        st.session_state.current_index = random.randint(0, len(sutra_sequence) - 2)
-        st.session_state.options = []
-        st.session_state.selected = None
-        st.session_state.score = 0
-        st.session_state.level = 1
-        st.session_state.streak = 0
-        st.rerun()
+    # Sidebar
+    if st.session_state.show_settings:
+        with st.sidebar:
+            st.markdown("### ⚙️ सेटिङ्ग्स्")
+            new_difficulty = st.selectbox(
+                "कठिनतास्तरः",
+                ["easy", "medium", "hard"],
+                index=["easy", "medium", "hard"].index(st.session_state.difficulty)
+            )
+            if new_difficulty != st.session_state.difficulty:
+                st.session_state.difficulty = new_difficulty
+                st.session_state.options = []
+                st.rerun()
+            
+            st.markdown("---")
+            st.markdown("### 📜 महेश्वरसूत्राणि")
+            for sutra in sutra_sequence:
+                st.markdown(f"**{' '.join(sutra)}**")
+            
+            if st.button(f"🔁 {SANSKRIT_MESSAGES['reset']}"):
+                reset_game()
 
-# Footer
+# ========== MAIN APP FLOW ==========
+initialize_session_state()
+
+if not st.session_state.game_started:
+    show_start_page()
+else:
+    show_game_page()
 st.markdown("---")
-st.markdown("⭐ इस ऐप को [GitHub पर स्टार करें](https://github.com/SDRMp)")
+st.markdown("⭐ अस्य अनुप्रयोगस्य [GitHub](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME) स्थाने तारां ददातु")
+# Footer
+st.markdown("---") 
+st.markdown("⭐ इस game को [GitHub पर स्टार करें](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME)")
+
+
+

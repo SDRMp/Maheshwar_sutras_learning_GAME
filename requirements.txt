@@ -1,0 +1,6 @@
+streamlit==1.32.0
+streamlit-extras==0.3.0
+streamlit-lottie==0.0.4
+requests==2.31.0
+# Add this to requirements.txt if using local files
+pygments==2.16.1
