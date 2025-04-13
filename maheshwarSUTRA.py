@@ -2,8 +2,6 @@ import streamlit as st
 import random
 import time
 from streamlit_extras.let_it_rain import rain
-from streamlit_lottie import st_lottie 
-import json
 
 # ✅ MUST BE THE FIRST STREAMLIT COMMAND
 st.set_page_config(page_title="📚 महेश्वर सूत्र - Memory Flip", layout="centered", initial_sidebar_state="collapsed")
@@ -57,13 +55,6 @@ flat_sutra_sequence = ["अ", "इ", "उ", "ण्", "ऋ", "ऌ", "क्", "�
                       "य्", "श", "ष", "स", "र्", "ह", "ल्"]
 
 # ========== HELPER FUNCTIONS ==========
-def load_lottie_file(filepath):
-    try:
-        with open(filepath, "r") as f:
-            return json.load(f)
-    except:
-        return None
-
 def initialize_session_state():
     defaults = {
         'game_started': False,
@@ -163,21 +154,25 @@ def generate_options(correct_answer, mode):
 def show_start_page():
     st.title("🪶 📚 🪶 महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
     
-    welcome_anim = load_lottie_file("welcome_animation.json")  # Replace with your file
-    if welcome_anim:
-        st_lottie(welcome_anim, speed=1, height=300, key="welcome")
+    # Emoji animation replacement
+    st.markdown("""
+    <div style='text-align: center; font-size: 100px; animation: bounce 2s infinite;'>
+        📚 🕉️ ✍️
+    </div>
+    <style>
+    @keyframes bounce {
+        0%, 100% {transform: translateY(0);}
+        50% {transform: translateY(-20px);}
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
-
-    st.markdown(
-        """
-        <div style='display: flex; justify-content: center; align-items: center; height: 20vh;'>
-            <h1 style='font-size: 100px;'>🕉️</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <div style='display: flex; justify-content: center; align-items: center; height: 20vh;'>
+        <h1 style='font-size: 100px;'>🕉️</h1>
+    </div>
+    """, unsafe_allow_html=True)
         
-
     st.markdown(f"""
         <div style="text-align: center; margin: 2rem 0;">
             <h3>{SANSKRIT_MESSAGES['welcome']}</h3>
@@ -208,13 +203,6 @@ def show_game_page():
             color: {st.session_state.current_color};
             font-weight: bold;
         }}
-        # .card-container {{
-        #     display: flex;
-        #     justify-content: center;
-        #     gap: 1rem;
-        #     margin: 1rem 0;
-        #     flex-wrap: wrap;
-        # }}
         .card {{
             font-size: 52px;
             padding: 1.5rem;
@@ -354,43 +342,10 @@ def show_game_page():
         </div>
     """, unsafe_allow_html=True)
 
-    # # Cards display
-    # if st.session_state.show_letters:
-    #     with st.spinner("🧠 स्मरतु... ३ सेकण्डेषु कार्डाः अदृश्याः भविष्यन्ति"):
-    #         st.markdown('<div class="card-container">', unsafe_allow_html=True)
-    #         for i, option in enumerate(st.session_state.options):
-    #             display_text = ' '.join(option) if isinstance(option, list) else option
-    #             font_size = "28px" if isinstance(option, list) else "52px"
-    #             st.markdown(f"""
-    #                 <div class="card" style="font-size: {font_size};">
-    #                     {display_text}
-    #                 </div>
-    #             """, unsafe_allow_html=True)
-    #         st.markdown('</div>', unsafe_allow_html=True)
-    #         time.sleep(3)
-    #         st.session_state.show_letters = False
-    #         st.rerun()
-    # else:
-    #     st.markdown('<div class="card-container">', unsafe_allow_html=True)
-    #     for i, emoji in enumerate(st.session_state.current_emojis[:len(st.session_state.options)]):
-    #         st.markdown(f"""
-    #             <div class="card">
-    #                 {emoji}
-    #             </div>
-    #         """, unsafe_allow_html=True)
-    #         # Invisible button overlay
-    #         if st.button("Select", key=f"option_{i}"):
-    #             st.session_state.selected = st.session_state.options[i]
-    #             st.session_state.question_count += 1
-    #             st.rerun()
-    #     st.markdown('</div>', unsafe_allow_html=True)
-
-    # # In the show_game_page() function, replace the cards display section with:
-
     # Cards display - Horizontal Layout
     if st.session_state.show_letters:
         with st.spinner("🧠 स्मरतु... ३ सेकण्डेषु कार्डाः अदृश्याः भविष्यन्ति"):
-            cols = st.columns(len(st.session_state.options))  # Create columns based on number of options
+            cols = st.columns(len(st.session_state.options))
             for i, col in enumerate(cols):
                 with col:
                     option = st.session_state.options[i]
@@ -405,7 +360,7 @@ def show_game_page():
             st.session_state.show_letters = False
             st.rerun()
     else:
-        cols = st.columns(len(st.session_state.options))  # Create columns based on number of options
+        cols = st.columns(len(st.session_state.options))
         for i, col in enumerate(cols):
             with col:
                 emoji = st.session_state.current_emojis[i % len(st.session_state.current_emojis)]
@@ -479,6 +434,7 @@ if not st.session_state.game_started:
     show_start_page()
 else:
     show_game_page()
+     
 st.markdown("---")
 st.markdown("⭐ अस्य अनुप्रयोगस्य [GitHub](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME) स्थाने तारां ददातु")
 # Footer
