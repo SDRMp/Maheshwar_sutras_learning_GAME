@@ -4,7 +4,7 @@ import time
 from streamlit_extras.let_it_rain import rain
 
 # ✅ MUST BE THE FIRST STREAMLIT COMMAND
-st.set_page_config(page_title="📚 महेश्वर सूत्र - Memory Flip", layout="centered", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="🚩 卐 सर्वेश्वररत्न 卐 🚩", layout="centered", initial_sidebar_state="collapsed")
 
 # ========== CONSTANTS ==========
 SANSKRIT_MESSAGES = {
@@ -152,12 +152,12 @@ def generate_options(correct_answer, mode):
 
 # ========== PAGE LAYOUTS ==========
 def show_start_page():
-    st.title("🪶 📚 🪶 महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
+    st.title("🪶 📚 🪶 सर्वेश्वररत्न - महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
     
     # Emoji animation replacement
     st.markdown("""
     <div style='text-align: center; font-size: 100px; animation: bounce 2s infinite;'>
-        📚 🕉️ ✍️
+         🕉️ 
     </div>
     <style>
     @keyframes bounce {
@@ -167,11 +167,11 @@ def show_start_page():
     </style>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    <div style='display: flex; justify-content: center; align-items: center; height: 20vh;'>
-        <h1 style='font-size: 100px;'>🕉️</h1>
-    </div>
-    """, unsafe_allow_html=True)
+    # st.markdown("""
+    # <div style='display: flex; justify-content: center; align-items: center; height: 20vh;'>
+    #     <h1 style='font-size: 100px;'>🕉️</h1>
+    # </div>
+    # """, unsafe_allow_html=True)
         
     st.markdown(f"""
         <div style="text-align: center; margin: 2rem 0;">
