@@ -3,17 +3,19 @@ import random
 import time
 from streamlit_extras.let_it_rain import rain
 
-# ✅ MUST BE THE FIRST STREAMLIT COMMAND
+ 
+
+# NOW set_page_config can be called safely
 st.set_page_config(
     page_title="🚩 卐 सर्वेश्वररत्न 卐 🚩", 
     layout="centered", 
     initial_sidebar_state="collapsed",
-    # Add mobile viewport meta tag
     meta_tags=[
         {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'}
     ]
 )
 
+# Rest of your constants and code...
 # ========== CONSTANTS ==========
 SANSKRIT_MESSAGES = {
     "welcome": "स्वागतम्! महेश्वरसूत्राणां स्मरणपरीक्षायां प्रवर्तस्व!",
