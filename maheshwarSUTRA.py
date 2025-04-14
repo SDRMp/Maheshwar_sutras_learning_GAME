@@ -152,7 +152,7 @@ def generate_options(correct_answer, mode):
 
 # ========== PAGE LAYOUTS ==========
 def show_start_page():
-    st.title("🪶 सर्वेश्वररत्न-महेश्वर सूत्र-स्मरण क्रीड़ा ⚔️ ")
+    st.title("🪶 सर्वेश्वररत्न-महेश्वर सूत्र स्मरण क्रीड़ा ⚔️ ")
     
     # Emoji animation replacement
     st.markdown("""
@@ -280,7 +280,7 @@ def show_game_page():
     """, unsafe_allow_html=True)
 
     # Header
-    st.title("🧠 सर्वेश्वररत्न -महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
+    st.title("🧠 सर्वेश्वररत्न-महेश्वर सूत्र स्मरण क्रीड़ा ⚔️ ")
     st.markdown(f"### 🌟 स्तरः {st.session_state.level} <span class='difficulty-badge' style='background-color: {'#dc3545' if st.session_state.difficulty == 'hard' else ('#fd7e14' if st.session_state.difficulty == 'medium' else '#28a745')}; color: white;'>{st.session_state.difficulty.upper()}</span>", unsafe_allow_html=True)
 
     # Progress
