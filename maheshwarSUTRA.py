@@ -280,7 +280,7 @@ def show_game_page():
     """, unsafe_allow_html=True)
 
     # Header
-    st.title("🧠 महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
+    st.title("🧠 सर्वेश्वररत्न -महेश्वर सूत्र - स्मरण क्रीड़ा ⚔️ ")
     st.markdown(f"### 🌟 स्तरः {st.session_state.level} <span class='difficulty-badge' style='background-color: {'#dc3545' if st.session_state.difficulty == 'hard' else ('#fd7e14' if st.session_state.difficulty == 'medium' else '#28a745')}; color: white;'>{st.session_state.difficulty.upper()}</span>", unsafe_allow_html=True)
 
     # Progress
@@ -435,11 +435,14 @@ if not st.session_state.game_started:
 else:
     show_game_page()
      
-st.markdown("---")
-st.markdown("⭐ अस्य अनुप्रयोगस्य [GitHub](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME) स्थाने तारां ददातु")
-# Footer
+# st.markdown("---")
+# st.markdown("⭐ अस्य अनुप्रयोगस्य [GitHub](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME) स्थाने तारां ददातु")
+# # Footer
+# st.markdown("---") 
+# st.markdown("⭐ इस game को [GitHub पर स्टार करें](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME)--- Made By Mishr_priya")
+
 st.markdown("---") 
-st.markdown("⭐ इस game को [GitHub पर स्टार करें](https://github.com/SDRMp/Maheshwar_sutras_learning_GAME)")
+st.markdown("⭐ Made By Mishr_priya")
 
 
 
