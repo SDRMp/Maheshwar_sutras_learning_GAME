@@ -1,0 +1,1769 @@
+{
+  "title": "Aṣṭādhyāyī Game Question Bank",
+  "version": "1.0.0",
+  "language": "en with Sanskrit (Devanāgarī)",
+  "scope_note": "A finite, reviewed starter bank for the supplied topic set. Literal 'all possible' questions cannot be enumerated because forms and examples can be varied indefinitely; use the included tables and question types to generate more rounds.",
+  "content_note": "Core game questions follow the attached study topics. The samāsa set is marked as a bonus extension. Advanced derivations should be reviewed against the learner's preferred पाठ before publishing.",
+  "units": [
+    "varnamala",
+    "pratyahara",
+    "it_samjna",
+    "prakriti_pratyaya",
+    "sandhi_ach",
+    "sandhi_hal",
+    "sandhi_visarga",
+    "asiddha",
+    "karaka",
+    "abhihita",
+    "subartha_non_karaka",
+    "subanta",
+    "tinganta",
+    "avyaya_upasarga",
+    "visheshana_visheshya",
+    "kridanta",
+    "stree_pratyaya",
+    "taddhita",
+    "samasa_bonus",
+    "sutra_memory"
+  ],
+  "reference_tables": {
+    "mahesvara_sutras": [
+      [
+        "अ",
+        "इ",
+        "उ",
+        "ण्"
+      ],
+      [
+        "ऋ",
+        "ऌ",
+        "क्"
+      ],
+      [
+        "ए",
+        "ओ",
+        "ङ्"
+      ],
+      [
+        "ऐ",
+        "औ",
+        "च्"
+      ],
+      [
+        "ह",
+        "य",
+        "व",
+        "र",
+        "ट्"
+      ],
+      [
+        "ल",
+        "ण्"
+      ],
+      [
+        "ञ",
+        "म",
+        "ङ",
+        "ण",
+        "न",
+        "म्"
+      ],
+      [
+        "झ",
+        "भ",
+        "ञ्"
+      ],
+      [
+        "घ",
+        "ढ",
+        "ध",
+        "ष्"
+      ],
+      [
+        "ज",
+        "ब",
+        "ग",
+        "ड",
+        "द",
+        "श्"
+      ],
+      [
+        "ख",
+        "फ",
+        "छ",
+        "ठ",
+        "थ",
+        "च",
+        "ट",
+        "त",
+        "व्"
+      ],
+      [
+        "क",
+        "प",
+        "य्"
+      ],
+      [
+        "श",
+        "ष",
+        "स",
+        "र्"
+      ],
+      [
+        "ह",
+        "ल्"
+      ]
+    ],
+    "pratyahara_expansions": {
+      "अच्": [
+        "अ",
+        "आ",
+        "इ",
+        "ई",
+        "उ",
+        "ऊ",
+        "ऋ",
+        "ॠ",
+        "ऌ",
+        "ए",
+        "ऐ",
+        "ओ",
+        "औ"
+      ],
+      "इक्": [
+        "इ",
+        "ई",
+        "उ",
+        "ऊ",
+        "ऋ",
+        "ॠ",
+        "ऌ"
+      ],
+      "यण्": [
+        "य्",
+        "व्",
+        "र्",
+        "ल्"
+      ],
+      "हल्": "सभी व्यञ्जन-वर्णाः; वर्गीय व्यञ्जनों सहित"
+    },
+    "rama_subanta_latin_masculine_a_stem": {
+      "प्रथमा": [
+        "रामः",
+        "रामौ",
+        "रामाः"
+      ],
+      "द्वितीया": [
+        "रामम्",
+        "रामौ",
+        "रामान्"
+      ],
+      "तृतीया": [
+        "रामेण",
+        "रामाभ्याम्",
+        "रामैः"
+      ],
+      "चतुर्थी": [
+        "रामाय",
+        "रामाभ्याम्",
+        "रामेभ्यः"
+      ],
+      "पञ्चमी": [
+        "रामात्",
+        "रामाभ्याम्",
+        "रामेभ्यः"
+      ],
+      "षष्ठी": [
+        "रामस्य",
+        "रामयोः",
+        "रामाणाम्"
+      ],
+      "सप्तमी": [
+        "रामे",
+        "रामयोः",
+        "रामेषु"
+      ],
+      "सम्बोधन": [
+        "हे राम",
+        "हे रामौ",
+        "हे रामाः"
+      ]
+    },
+    "path_present_parasmaipada": {
+      "प्रथमपुरुषः": [
+        "पठति",
+        "पठतः",
+        "पठन्ति"
+      ],
+      "मध्यमपुरुषः": [
+        "पठसि",
+        "पठथः",
+        "पठथ"
+      ],
+      "उत्तमपुरुषः": [
+        "पठामि",
+        "पठावः",
+        "पठामः"
+      ],
+      "vacana_order": [
+        "एकवचनम्",
+        "द्विवचनम्",
+        "बहुवचनम्"
+      ],
+      "lakara": "लट्"
+    }
+  },
+  "questions": [
+    {
+      "id": "VAR-001",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "Which set is the क-वर्ग?",
+      "answer": [
+        "क",
+        "ख",
+        "ग",
+        "घ",
+        "ङ"
+      ],
+      "options": [
+        [
+          "क",
+          "ख",
+          "ग",
+          "घ",
+          "ङ"
+        ],
+        [
+          "च",
+          "छ",
+          "ज",
+          "झ",
+          "ञ"
+        ],
+        [
+          "ट",
+          "ठ",
+          "ड",
+          "ढ",
+          "ण"
+        ],
+        [
+          "त",
+          "थ",
+          "द",
+          "ध",
+          "न"
+        ]
+      ],
+      "explanation": "The five vargas are grouped by their place of articulation."
+    },
+    {
+      "id": "VAR-002",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "What is the place of articulation of the क-वर्ग?",
+      "answer": "कण्ठ",
+      "options": [
+        "तालु",
+        "मूर्धा",
+        "कण्ठ",
+        "दन्त"
+      ],
+      "explanation": "The क-वर्ग is guttural (कण्ठ्य)."
+    },
+    {
+      "id": "VAR-003",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "What is the place of articulation of the च-वर्ग?",
+      "answer": "तालु",
+      "options": [
+        "कण्ठ",
+        "तालु",
+        "मूर्धा",
+        "ओष्ठ"
+      ],
+      "explanation": "The च-वर्ग is palatal (तालव्य)."
+    },
+    {
+      "id": "VAR-004",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "What is the place of articulation of the ट-वर्ग?",
+      "answer": "मूर्धा",
+      "options": [
+        "कण्ठ",
+        "तालु",
+        "मूर्धा",
+        "दन्त"
+      ],
+      "explanation": "The ट-वर्ग is retroflex/cerebral (मूर्धन्य)."
+    },
+    {
+      "id": "VAR-005",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "What is the place of articulation of the त-वर्ग?",
+      "answer": "दन्त",
+      "options": [
+        "तालु",
+        "मूर्धा",
+        "दन्त",
+        "ओष्ठ"
+      ],
+      "explanation": "The त-वर्ग is dental (दन्त्य)."
+    },
+    {
+      "id": "VAR-006",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "What is the place of articulation of the प-वर्ग?",
+      "answer": "ओष्ठ",
+      "options": [
+        "कण्ठ",
+        "दन्त",
+        "ओष्ठ",
+        "तालु"
+      ],
+      "explanation": "The प-वर्ग is labial (ओष्ठ्य)."
+    },
+    {
+      "id": "VAR-007",
+      "unit": "varnamala",
+      "type": "tap",
+      "prompt": "Tap the four अन्तःस्थ वर्णाः.",
+      "answer": [
+        "य",
+        "र",
+        "ल",
+        "व"
+      ],
+      "explanation": "The अन्तःस्थ letters are य्, र्, ल्, व्."
+    },
+    {
+      "id": "VAR-008",
+      "unit": "varnamala",
+      "type": "tap",
+      "prompt": "Tap the four ऊष्म वर्णाः.",
+      "answer": [
+        "श",
+        "ष",
+        "स",
+        "ह"
+      ],
+      "explanation": "The ऊष्म letters are श्, ष्, स्, ह्."
+    },
+    {
+      "id": "VAR-009",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "Which letter is the nasal of the क-वर्ग?",
+      "answer": "ङ",
+      "options": [
+        "ङ",
+        "ञ",
+        "ण",
+        "न"
+      ],
+      "explanation": "ङ is the fifth letter of the क-वर्ग."
+    },
+    {
+      "id": "VAR-010",
+      "unit": "varnamala",
+      "type": "multiple_choice",
+      "prompt": "Which member of this pair is महाप्राण?",
+      "answer": "ख",
+      "options": [
+        "क",
+        "ख"
+      ],
+      "explanation": "ख is aspirated (महाप्राण); क is unaspirated (अल्पप्राण)."
+    },
+    {
+      "id": "PRA-001",
+      "unit": "pratyahara",
+      "type": "multiple_choice",
+      "prompt": "Which class is denoted by अच्?",
+      "answer": "स्वर-वर्णाः",
+      "options": [
+        "स्वर-वर्णाः",
+        "व्यञ्जन-वर्णाः",
+        "केवल अन्तःस्थ-वर्णाः",
+        "केवल ऊष्म-वर्णाः"
+      ],
+      "explanation": "अच् denotes the vowel class; use the vowel inventory taught in the game."
+    },
+    {
+      "id": "PRA-002",
+      "unit": "pratyahara",
+      "type": "tap",
+      "prompt": "Tap the इक् वर्णाः, including their listed savarṇa long vowels.",
+      "answer": [
+        "इ",
+        "ई",
+        "उ",
+        "ऊ",
+        "ऋ",
+        "ॠ",
+        "ऌ"
+      ],
+      "explanation": "इक् expands to इ, ई, उ, ऊ, ऋ, ॠ, ऌ."
+    },
+    {
+      "id": "PRA-003",
+      "unit": "pratyahara",
+      "type": "tap",
+      "prompt": "Tap the यण् वर्णाः.",
+      "answer": [
+        "य",
+        "व",
+        "र",
+        "ल"
+      ],
+      "explanation": "यण् denotes य्, व्, र्, ल्."
+    },
+    {
+      "id": "PRA-004",
+      "unit": "pratyahara",
+      "type": "multiple_choice",
+      "prompt": "हल् denotes which class?",
+      "answer": "सभी व्यञ्जन-वर्णाः",
+      "options": [
+        "सभी स्वर-वर्णाः",
+        "सभी व्यञ्जन-वर्णाः",
+        "केवल स्पर्श-वर्णाः",
+        "केवल ऊष्म-वर्णाः"
+      ],
+      "explanation": "हल् is the pratyāhāra for consonants."
+    },
+    {
+      "id": "PRA-005",
+      "unit": "pratyahara",
+      "type": "multiple_choice",
+      "prompt": "Which इत् marker closes the pratyāhāra अच्?",
+      "answer": "च्",
+      "options": [
+        "ण्",
+        "क्",
+        "च्",
+        "ङ्"
+      ],
+      "explanation": "The first Māheśvara sūtras end in the marker च् after ऐ औ."
+    },
+    {
+      "id": "PRA-006",
+      "unit": "pratyahara",
+      "type": "multiple_choice",
+      "prompt": "In the first Māheśvara sūtra अ इ उ ण्, which letter is the इत् marker?",
+      "answer": "ण्",
+      "options": [
+        "अ",
+        "इ",
+        "उ",
+        "ण्"
+      ],
+      "explanation": "The final ण् marks the end of the sound sequence."
+    },
+    {
+      "id": "PRA-007",
+      "unit": "pratyahara",
+      "type": "arrange",
+      "prompt": "Arrange these first four Māheśvara sūtra groups in order.",
+      "answer": [
+        "अ इ उ ण्",
+        "ऋ ऌ क्",
+        "ए ओ ङ्",
+        "ऐ औ च्"
+      ],
+      "explanation": "This is the opening sequence of the Māheśvara sūtras."
+    },
+    {
+      "id": "IT-001",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "After इत्-lopa, what remains of तुमुँन्?",
+      "answer": "तुम्",
+      "options": [
+        "तुम्",
+        "तुमु",
+        "तुन्",
+        "तु"
+      ],
+      "explanation": "The anunāsika उ and final न् are इत्; तस्य लोपः deletes them.",
+      "sutra": "1.3.2, 1.3.3, 1.3.9"
+    },
+    {
+      "id": "IT-002",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "After इत्-lopa, what remains of क्त्वा?",
+      "answer": "त्वा",
+      "options": [
+        "क्त्वा",
+        "त्वा",
+        "वा",
+        "ता"
+      ],
+      "explanation": "The initial क् is इत् in this non-taddhita affix; it is deleted.",
+      "sutra": "1.3.8, 1.3.9"
+    },
+    {
+      "id": "IT-003",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "After इत्-lopa, what remains of शप्?",
+      "answer": "अ",
+      "options": [
+        "श",
+        "प",
+        "अ",
+        "शप"
+      ],
+      "explanation": "Initial श् and final प् are इत्; अ remains.",
+      "sutra": "1.3.3, 1.3.8, 1.3.9"
+    },
+    {
+      "id": "IT-004",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "After इत्-lopa, what remains of तिप्?",
+      "answer": "ति",
+      "options": [
+        "ति",
+        "तिप",
+        "इ",
+        "त"
+      ],
+      "explanation": "The final प् is इत् and is deleted.",
+      "sutra": "1.3.3, 1.3.9"
+    },
+    {
+      "id": "IT-005",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "Which sūtra marks a final consonant in an उपदेश as इत्?",
+      "answer": "हलन्त्यम्",
+      "options": [
+        "उपदेशेऽजनुनासिक इत्",
+        "हलन्त्यम्",
+        "लशक्वतद्धिते",
+        "तस्य लोपः"
+      ],
+      "explanation": "हलन्त्यम् is sūtra 1.3.3.",
+      "sutra": "1.3.3"
+    },
+    {
+      "id": "IT-006",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "Which sūtra assigns इत्-saṃjñā to an anunāsika vowel in an उपदेश?",
+      "answer": "उपदेशेऽजनुनासिक इत्",
+      "options": [
+        "उपदेशेऽजनुनासिक इत्",
+        "हलन्त्यम्",
+        "तस्य लोपः",
+        "इको यणचि"
+      ],
+      "explanation": "This is sūtra 1.3.2.",
+      "sutra": "1.3.2"
+    },
+    {
+      "id": "IT-007",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "Which sūtra deletes letters that have इत्-saṃjñā?",
+      "answer": "तस्य लोपः",
+      "options": [
+        "वृद्धिरादैच्",
+        "अदेङ् गुणः",
+        "तस्य लोपः",
+        "हलन्त्यम्"
+      ],
+      "explanation": "इत् letters are deleted by तस्य लोपः.",
+      "sutra": "1.3.9"
+    },
+    {
+      "id": "IT-008",
+      "unit": "it_samjna",
+      "type": "multiple_choice",
+      "prompt": "Why is the initial क् in क्त्वा marked as इत्?",
+      "answer": "It is an initial क् in a non-taddhita affix.",
+      "options": [
+        "It is a nasal vowel.",
+        "It is the final consonant.",
+        "It is an initial क् in a non-taddhita affix.",
+        "It is a vowel before another vowel."
+      ],
+      "explanation": "लशक्वतद्धिते covers initial क-varga letters in non-taddhita affixes.",
+      "sutra": "1.3.8"
+    },
+    {
+      "id": "PP-001",
+      "unit": "prakriti_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "In कर्तुम् (कृ + तुमुन्), which is the धातु / प्रकृति?",
+      "answer": "कृ",
+      "options": [
+        "कृ",
+        "तुमुन्",
+        "तुम्",
+        "कर्तु"
+      ],
+      "explanation": "कृ is the verbal base; तुमुन् is the affix."
+    },
+    {
+      "id": "PP-002",
+      "unit": "prakriti_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "In पठित्वा (पठ् + क्त्वा), which प्रत्यय is used?",
+      "answer": "क्त्वा",
+      "options": [
+        "तुमुन्",
+        "क्त्वा",
+        "तृच्",
+        "शप्"
+      ],
+      "explanation": "क्त्वा forms an indeclinable meaning 'having read' here."
+    },
+    {
+      "id": "PP-003",
+      "unit": "prakriti_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "Which statement best describes प्रकृति and प्रत्यय?",
+      "answer": "प्रकृति is the base; प्रत्यय is added to it.",
+      "options": [
+        "प्रकृति is the base; प्रत्यय is added to it.",
+        "प्रकृति is always a case ending.",
+        "प्रत्यय is always a dhātu.",
+        "They are both sentence subjects."
+      ],
+      "explanation": "The base and suffix combine to form a derived word."
+    },
+    {
+      "id": "PP-004",
+      "unit": "prakriti_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "Which suffix is a कृत् प्रत्यय in this set?",
+      "answer": "क्त्वा",
+      "options": [
+        "क्त्वा",
+        "सुँ",
+        "औ",
+        "जस्"
+      ],
+      "explanation": "क्त्वा is added to a dhātu; सुप् endings are nominal case endings."
+    },
+    {
+      "id": "SVA-001",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join दधि + अत्र by vowel sandhi.",
+      "answer": "दध्यत्र",
+      "options": [
+        "दध्यत्र",
+        "दधात्र",
+        "दधित्र",
+        "दधैत्र"
+      ],
+      "explanation": "इ is replaced by य् before the following vowel.",
+      "sutra": "6.1.77 इको यणचि"
+    },
+    {
+      "id": "SVA-002",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join मधु + इति by vowel sandhi.",
+      "answer": "मध्विति",
+      "options": [
+        "मध्विति",
+        "मधूति",
+        "मधैति",
+        "मधिति"
+      ],
+      "explanation": "उ is replaced by व् before the following vowel.",
+      "sutra": "6.1.77 इको यणचि"
+    },
+    {
+      "id": "SVA-003",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join विद्या + आलयः.",
+      "answer": "विद्यालयः",
+      "options": [
+        "विद्यालयः",
+        "विद्यायलः",
+        "विद्यालायः",
+        "विद्यैालयः"
+      ],
+      "explanation": "आ + आ combines as आ.",
+      "sutra": "6.1.101 अकः सवर्णे दीर्घः"
+    },
+    {
+      "id": "SVA-004",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join गुरु + उपदेशः.",
+      "answer": "गुरूपदेशः",
+      "options": [
+        "गुरूपदेशः",
+        "गुरुपदेशः",
+        "गुरुवपदेशः",
+        "गुरौपदेशः"
+      ],
+      "explanation": "उ + उ combines as ऊ.",
+      "sutra": "6.1.101 अकः सवर्णे दीर्घः"
+    },
+    {
+      "id": "SVA-005",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join राम + ईश्वरः.",
+      "answer": "रामेश्वरः",
+      "options": [
+        "रामेश्वरः",
+        "रामैश्वरः",
+        "रामिश्वरः",
+        "रामश्वरः"
+      ],
+      "explanation": "अ + ई gives ए by guṇa sandhi.",
+      "sutra": "6.1.87 आद्गुणः"
+    },
+    {
+      "id": "SVA-006",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join सदा + एव.",
+      "answer": "सदैव",
+      "options": [
+        "सदैव",
+        "सदेव",
+        "सदाव",
+        "सदूव"
+      ],
+      "explanation": "आ + ए gives ऐ in this sandhi.",
+      "sutra": "6.1.88 वृद्धिरेचि"
+    },
+    {
+      "id": "SVA-007",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Join इति + आदि.",
+      "answer": "इत्यादि",
+      "options": [
+        "इत्यादि",
+        "इतीदि",
+        "इत्येति",
+        "इत्युदि"
+      ],
+      "explanation": "Final इ becomes य् before the following vowel.",
+      "sutra": "6.1.77 इको यणचि"
+    },
+    {
+      "id": "SVA-008",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Which rule is taught by दधि + अत्र → दध्यत्र?",
+      "answer": "इको यणचि",
+      "options": [
+        "इको यणचि",
+        "अकः सवर्णे दीर्घः",
+        "वृद्धिरेचि",
+        "हलन्त्यम्"
+      ],
+      "explanation": "A vowel of इक् becomes the corresponding यण् before a vowel.",
+      "sutra": "6.1.77"
+    },
+    {
+      "id": "SVA-009",
+      "unit": "sandhi_ach",
+      "type": "fill_blank",
+      "prompt": "Split दध्यत्र into its two original words.",
+      "answer": "दधि + अत्र",
+      "explanation": "दधि ends in इ and अत्र begins with अ."
+    },
+    {
+      "id": "SVA-010",
+      "unit": "sandhi_ach",
+      "type": "fill_blank",
+      "prompt": "Split सदैव into its two original words.",
+      "answer": "सदा + एव",
+      "explanation": "आ + ए gives ऐ."
+    },
+    {
+      "id": "SVA-011",
+      "unit": "sandhi_ach",
+      "type": "multiple_choice",
+      "prompt": "Which rule gives a long vowel when two savarṇa vowels meet?",
+      "answer": "अकः सवर्णे दीर्घः",
+      "options": [
+        "इको यणचि",
+        "अकः सवर्णे दीर्घः",
+        "वृद्धिरेचि",
+        "तस्य लोपः"
+      ],
+      "explanation": "The rule is 6.1.101.",
+      "sutra": "6.1.101"
+    },
+    {
+      "id": "SVH-001",
+      "unit": "sandhi_hal",
+      "type": "multiple_choice",
+      "prompt": "Join सत् + जनः.",
+      "answer": "सज्जनः",
+      "options": [
+        "सज्जनः",
+        "सत्जनः",
+        "सदजनः",
+        "सजनः"
+      ],
+      "explanation": "The consonants change at the boundary; the established form is सज्जनः."
+    },
+    {
+      "id": "SVH-002",
+      "unit": "sandhi_hal",
+      "type": "multiple_choice",
+      "prompt": "Join सत् + आचारः.",
+      "answer": "सदाचारः",
+      "options": [
+        "सदाचारः",
+        "सताचारः",
+        "सच्चाचारः",
+        "साचारः"
+      ],
+      "explanation": "The final त् becomes द् before the following vowel."
+    },
+    {
+      "id": "SVH-003",
+      "unit": "sandhi_hal",
+      "type": "multiple_choice",
+      "prompt": "Join दिक् + अम्बरः.",
+      "answer": "दिगम्बरः",
+      "options": [
+        "दिगम्बरः",
+        "दिकम्बरः",
+        "दिञम्बरः",
+        "दिकाम्बरः"
+      ],
+      "explanation": "The final क् becomes ग् before the following vowel."
+    },
+    {
+      "id": "SVH-004",
+      "unit": "sandhi_hal",
+      "type": "multiple_choice",
+      "prompt": "What type of sandhi is illustrated by सत् + जनः → सज्जनः?",
+      "answer": "व्यञ्जन-सन्धिः",
+      "options": [
+        "अच्-सन्धिः",
+        "व्यञ्जन-सन्धिः",
+        "विसर्ग-सन्धिः",
+        "प्रकृतिभावः"
+      ],
+      "explanation": "A consonant boundary is involved."
+    },
+    {
+      "id": "SVI-001",
+      "unit": "sandhi_visarga",
+      "type": "multiple_choice",
+      "prompt": "Join नमः + ते.",
+      "answer": "नमस्ते",
+      "options": [
+        "नमस्ते",
+        "नमश्ते",
+        "नमोते",
+        "नमते"
+      ],
+      "explanation": "Visarga becomes स् before त in this form."
+    },
+    {
+      "id": "SVI-002",
+      "unit": "sandhi_visarga",
+      "type": "multiple_choice",
+      "prompt": "Join कविः + अयम्.",
+      "answer": "कविरयम्",
+      "options": [
+        "कविरयम्",
+        "कविःअयम्",
+        "कविययम्",
+        "कवायम्"
+      ],
+      "explanation": "Final इः before a vowel is represented by र् in this form."
+    },
+    {
+      "id": "SVI-003",
+      "unit": "sandhi_visarga",
+      "type": "multiple_choice",
+      "prompt": "Join सः + अपि.",
+      "answer": "सोऽपि",
+      "options": [
+        "सोऽपि",
+        "सःअपि",
+        "सापि",
+        "सशपि"
+      ],
+      "explanation": "अः before a vowel gives ओऽ in this form."
+    },
+    {
+      "id": "SVI-004",
+      "unit": "sandhi_visarga",
+      "type": "multiple_choice",
+      "prompt": "What type of sandhi is shown in नमः + ते → नमस्ते?",
+      "answer": "विसर्ग-सन्धिः",
+      "options": [
+        "अच्-सन्धिः",
+        "व्यञ्जन-सन्धिः",
+        "विसर्ग-सन्धिः",
+        "गुण-सन्धिः"
+      ],
+      "explanation": "The starting form contains visarga."
+    },
+    {
+      "id": "ASD-001",
+      "unit": "asiddha",
+      "type": "fill_blank",
+      "prompt": "Complete the sūtra: पूर्वत्र ______।",
+      "answer": "असिद्धम्",
+      "explanation": "The phrase begins the asiddha discussion.",
+      "sutra": "8.2.1 पूर्वत्रासिद्धम्"
+    },
+    {
+      "id": "ASD-002",
+      "unit": "asiddha",
+      "type": "multiple_choice",
+      "prompt": "Which sūtra number is पूर्वत्रासिद्धम्?",
+      "answer": "8.2.1",
+      "options": [
+        "8.2.1",
+        "6.1.77",
+        "1.3.9",
+        "3.1.68"
+      ],
+      "explanation": "पूर्वत्रासिद्धम् is sūtra 8.2.1."
+    },
+    {
+      "id": "ASD-003",
+      "unit": "asiddha",
+      "type": "multiple_choice",
+      "prompt": "In the relevant rule context, असिद्ध means that a rule is treated as what?",
+      "answer": "As not yet effective for that operation.",
+      "options": [
+        "As the final answer of a derivation.",
+        "As not yet effective for that operation.",
+        "As a nominal case ending.",
+        "As a vowel class."
+      ],
+      "explanation": "असिद्ध is a technical, context-governed notion; later rules and exceptions matter.",
+      "sutra": "8.2.1 पूर्वत्रासिद्धम्"
+    },
+    {
+      "id": "KAR-001",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In रामः पुस्तकं पठति, which word is the कर्ता?",
+      "answer": "रामः",
+      "options": [
+        "रामः",
+        "पुस्तकम्",
+        "पठति",
+        "None"
+      ],
+      "explanation": "रामः performs the action."
+    },
+    {
+      "id": "KAR-002",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In रामः पुस्तकं पठति, which word is the कर्म?",
+      "answer": "पुस्तकम्",
+      "options": [
+        "रामः",
+        "पुस्तकम्",
+        "पठति",
+        "None"
+      ],
+      "explanation": "पुस्तकम् is what is read."
+    },
+    {
+      "id": "KAR-003",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In रामः लेखन्या पत्रं लिखति, which word is the करणम्?",
+      "answer": "लेखन्या",
+      "options": [
+        "रामः",
+        "लेखन्या",
+        "पत्रम्",
+        "लिखति"
+      ],
+      "explanation": "लेखन्या names the instrument used to write."
+    },
+    {
+      "id": "KAR-004",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In रामः बालकाय फलम् ददाति, which word is सम्प्रदानम्?",
+      "answer": "बालकाय",
+      "options": [
+        "रामः",
+        "बालकाय",
+        "फलम्",
+        "ददाति"
+      ],
+      "explanation": "बालकाय is the recipient."
+    },
+    {
+      "id": "KAR-005",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In वृक्षात् पत्रं पतति, which word is अपादानम्?",
+      "answer": "वृक्षात्",
+      "options": [
+        "वृक्षात्",
+        "पत्रम्",
+        "पतति",
+        "None"
+      ],
+      "explanation": "वृक्षात् indicates the point of separation."
+    },
+    {
+      "id": "KAR-006",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "In बालकः कक्षायां पठति, which word is अधिकरणम्?",
+      "answer": "कक्षायाम्",
+      "options": [
+        "बालकः",
+        "कक्षायाम्",
+        "पठति",
+        "None"
+      ],
+      "explanation": "कक्षायाम् indicates the location."
+    },
+    {
+      "id": "KAR-007",
+      "unit": "karaka",
+      "type": "tap",
+      "prompt": "Tap the six commonly taught कारक names.",
+      "answer": [
+        "कर्ता",
+        "कर्म",
+        "करण",
+        "सम्प्रदान",
+        "अपादान",
+        "अधिकरण"
+      ],
+      "explanation": "These are the six core kāraka categories in this learning set."
+    },
+    {
+      "id": "KAR-008",
+      "unit": "karaka",
+      "type": "multiple_choice",
+      "prompt": "Which कारक role identifies the recipient of an action such as बालकाय in फलम् ददाति?",
+      "answer": "सम्प्रदानम्",
+      "options": [
+        "कर्तृ",
+        "कर्म",
+        "करणम्",
+        "सम्प्रदानम्"
+      ],
+      "explanation": "सम्प्रदानम् is the recipient role."
+    },
+    {
+      "id": "ABH-001",
+      "unit": "abhihita",
+      "type": "multiple_choice",
+      "prompt": "In रामः पठति, which role is expressed as the nominative subject and matched by the active verb?",
+      "answer": "कर्ता",
+      "options": [
+        "कर्ता",
+        "कर्म",
+        "करणम्",
+        "अपादानम्"
+      ],
+      "explanation": "In the active sentence the agent is expressed in the nominative."
+    },
+    {
+      "id": "ABH-002",
+      "unit": "abhihita",
+      "type": "multiple_choice",
+      "prompt": "In पुस्तकं रामेण पठ्यते, which role is expressed in the nominative and matched by the passive verb?",
+      "answer": "कर्म",
+      "options": [
+        "कर्ता",
+        "कर्म",
+        "करणम्",
+        "सम्प्रदानम्"
+      ],
+      "explanation": "The passive verb agrees with पुस्तकं; रामेण remains instrumental."
+    },
+    {
+      "id": "ABH-003",
+      "unit": "abhihita",
+      "type": "multiple_choice",
+      "prompt": "Which form is the passive verb in पुस्तकं रामेण पठ्यते?",
+      "answer": "पठ्यते",
+      "options": [
+        "पठति",
+        "पठ्यते",
+        "पठसि",
+        "पठामि"
+      ],
+      "explanation": "पठ्यते is the कर्मणि प्रयोग form."
+    },
+    {
+      "id": "SUB-001",
+      "unit": "subartha_non_karaka",
+      "type": "multiple_choice",
+      "prompt": "What case and number is रामस्य?",
+      "answer": "षष्ठी एकवचनम्",
+      "options": [
+        "प्रथमा एकवचनम्",
+        "द्वितीया एकवचनम्",
+        "षष्ठी एकवचनम्",
+        "सप्तमी बहुवचनम्"
+      ],
+      "explanation": "रामस्य expresses a genitive singular relation."
+    },
+    {
+      "id": "SUB-002",
+      "unit": "subartha_non_karaka",
+      "type": "multiple_choice",
+      "prompt": "What case is used in हे राम?",
+      "answer": "सम्बोधनम्",
+      "options": [
+        "प्रथमा",
+        "तृतीया",
+        "षष्ठी",
+        "सम्बोधनम्"
+      ],
+      "explanation": "हे राम is a singular vocative form."
+    },
+    {
+      "id": "SUB-003",
+      "unit": "subartha_non_karaka",
+      "type": "multiple_choice",
+      "prompt": "In मासम् अधीते, मासम् expresses what?",
+      "answer": "A duration of time",
+      "options": [
+        "The agent",
+        "A duration of time",
+        "The instrument",
+        "The recipient"
+      ],
+      "explanation": "Accusative can express time of continuous duration."
+    },
+    {
+      "id": "SUB-004",
+      "unit": "subartha_non_karaka",
+      "type": "multiple_choice",
+      "prompt": "In रामस्य पुस्तकम्, what relation does रामस्य express?",
+      "answer": "सम्बन्धः",
+      "options": [
+        "करणम्",
+        "सम्बन्धः",
+        "अपादानम्",
+        "सम्प्रदानम्"
+      ],
+      "explanation": "The genitive expresses a relation such as possession."
+    },
+    {
+      "id": "SUB-005",
+      "unit": "subartha_non_karaka",
+      "type": "multiple_choice",
+      "prompt": "What is the singular vocative form in हे वायो?",
+      "answer": "वायो",
+      "options": [
+        "वायुः",
+        "वायुम्",
+        "वायो",
+        "वायवे"
+      ],
+      "explanation": "वायो is the संबोधन singular form used with हे."
+    },
+    {
+      "id": "NOM-001",
+      "unit": "subanta",
+      "type": "multiple_choice",
+      "prompt": "What is the nominative singular of राम?",
+      "answer": "रामः",
+      "options": [
+        "रामः",
+        "रामम्",
+        "रामेण",
+        "रामाय"
+      ],
+      "explanation": "रामः is प्रथमा एकवचनम्."
+    },
+    {
+      "id": "NOM-002",
+      "unit": "subanta",
+      "type": "multiple_choice",
+      "prompt": "What is the accusative singular of राम?",
+      "answer": "रामम्",
+      "options": [
+        "रामः",
+        "रामम्",
+        "रामे",
+        "रामस्य"
+      ],
+      "explanation": "रामम् is द्वितीया एकवचनम्."
+    },
+    {
+      "id": "NOM-003",
+      "unit": "subanta",
+      "type": "multiple_choice",
+      "prompt": "What is the instrumental plural of राम?",
+      "answer": "रामैः",
+      "options": [
+        "रामेभ्यः",
+        "रामैः",
+        "रामाणाम्",
+        "रामेषु"
+      ],
+      "explanation": "रामैः is तृतीया बहुवचनम्."
+    },
+    {
+      "id": "NOM-004",
+      "unit": "subanta",
+      "type": "multiple_choice",
+      "prompt": "What is the dative singular of राम?",
+      "answer": "रामाय",
+      "options": [
+        "रामात्",
+        "रामाय",
+        "रामस्य",
+        "रामे"
+      ],
+      "explanation": "रामाय is चतुर्थी एकवचनम्."
+    },
+    {
+      "id": "NOM-005",
+      "unit": "subanta",
+      "type": "multiple_choice",
+      "prompt": "What is the locative plural of राम?",
+      "answer": "रामेषु",
+      "options": [
+        "रामैः",
+        "रामेभ्यः",
+        "रामेषु",
+        "रामाणाम्"
+      ],
+      "explanation": "रामेषु is सप्तमी बहुवचनम्."
+    },
+    {
+      "id": "VER-001",
+      "unit": "tinganta",
+      "type": "multiple_choice",
+      "prompt": "Complete: सः ______ (पठ्, लट्, प्रथमपुरुष, एकवचन).",
+      "answer": "पठति",
+      "options": [
+        "पठति",
+        "पठसि",
+        "पठामि",
+        "पठन्ति"
+      ],
+      "explanation": "लट्, प्रथमपुरुष, एकवचन of पठ् is पठति."
+    },
+    {
+      "id": "VER-002",
+      "unit": "tinganta",
+      "type": "multiple_choice",
+      "prompt": "Complete: तौ ______ (पठ्, लट्, प्रथमपुरुष, द्विवचन).",
+      "answer": "पठतः",
+      "options": [
+        "पठति",
+        "पठतः",
+        "पठन्ति",
+        "पठथः"
+      ],
+      "explanation": "The third-person dual form is पठतः."
+    },
+    {
+      "id": "VER-003",
+      "unit": "tinganta",
+      "type": "multiple_choice",
+      "prompt": "Complete: ते ______ (पठ्, लट्, प्रथमपुरुष, बहुवचन).",
+      "answer": "पठन्ति",
+      "options": [
+        "पठति",
+        "पठतः",
+        "पठन्ति",
+        "पठामः"
+      ],
+      "explanation": "The third-person plural form is पठन्ति."
+    },
+    {
+      "id": "VER-004",
+      "unit": "tinganta",
+      "type": "multiple_choice",
+      "prompt": "Complete: त्वं ______ (पठ्, लट्, मध्यमपुरुष, एकवचन).",
+      "answer": "पठसि",
+      "options": [
+        "पठति",
+        "पठसि",
+        "पठामि",
+        "पठथ"
+      ],
+      "explanation": "The second-person singular form is पठसि."
+    },
+    {
+      "id": "VER-005",
+      "unit": "tinganta",
+      "type": "multiple_choice",
+      "prompt": "Complete: अहम् ______ (पठ्, लट्, उत्तमपुरुष, एकवचन).",
+      "answer": "पठामि",
+      "options": [
+        "पठति",
+        "पठसि",
+        "पठामि",
+        "पठावः"
+      ],
+      "explanation": "The first-person singular form is पठामि."
+    },
+    {
+      "id": "AVY-001",
+      "unit": "avyaya_upasarga",
+      "type": "multiple_choice",
+      "prompt": "In अद्य रामः पठति, which word is अव्ययम्?",
+      "answer": "अद्य",
+      "options": [
+        "अद्य",
+        "रामः",
+        "पठति",
+        "None"
+      ],
+      "explanation": "अद्य is indeclinable."
+    },
+    {
+      "id": "AVY-002",
+      "unit": "avyaya_upasarga",
+      "type": "multiple_choice",
+      "prompt": "Which is an उपसर्ग in प्रगच्छति?",
+      "answer": "प्र",
+      "options": [
+        "प्र",
+        "गम्",
+        "ति",
+        "अ"
+      ],
+      "explanation": "प्र is prefixed to the verbal root गम्."
+    },
+    {
+      "id": "AVY-003",
+      "unit": "avyaya_upasarga",
+      "type": "fill_blank",
+      "prompt": "Add the उपसर्ग आ to गम् to form the common verb meaning 'comes'.",
+      "answer": "आगच्छति",
+      "explanation": "आ + गम् forms आगच्छति in the present tense."
+    },
+    {
+      "id": "AVY-004",
+      "unit": "avyaya_upasarga",
+      "type": "multiple_choice",
+      "prompt": "Which word is an उपसर्ग in उपविशति?",
+      "answer": "उप",
+      "options": [
+        "उप",
+        "विश्",
+        "ति",
+        "इ"
+      ],
+      "explanation": "उप precedes the root विश्."
+    },
+    {
+      "id": "AVY-005",
+      "unit": "avyaya_upasarga",
+      "type": "multiple_choice",
+      "prompt": "Which statement describes an उपसर्ग?",
+      "answer": "A preverbal prefix that combines with a धातु.",
+      "options": [
+        "A case ending added to a noun.",
+        "A preverbal prefix that combines with a धातु.",
+        "A vowel class.",
+        "A verb tense."
+      ],
+      "explanation": "Upasargas precede roots and contribute meaning."
+    },
+    {
+      "id": "AVY-006",
+      "unit": "avyaya_upasarga",
+      "type": "multiple_choice",
+      "prompt": "Which word is अव्ययम् in पुनः बालकः लिखति?",
+      "answer": "पुनः",
+      "options": [
+        "पुनः",
+        "बालकः",
+        "लिखति",
+        "None"
+      ],
+      "explanation": "पुनः is indeclinable."
+    },
+    {
+      "id": "ADJ-001",
+      "unit": "visheshana_visheshya",
+      "type": "multiple_choice",
+      "prompt": "Which adjective form agrees with बालकः?",
+      "answer": "सुन्दरः",
+      "options": [
+        "सुन्दरी",
+        "सुन्दरः",
+        "सुन्दरम्",
+        "सुन्दराणि"
+      ],
+      "explanation": "Masculine nominative singular agreement: सुन्दरः बालकः."
+    },
+    {
+      "id": "ADJ-002",
+      "unit": "visheshana_visheshya",
+      "type": "multiple_choice",
+      "prompt": "Which adjective form agrees with बालिका?",
+      "answer": "सुन्दरी",
+      "options": [
+        "सुन्दरः",
+        "सुन्दरी",
+        "सुन्दरम्",
+        "सुन्दराणि"
+      ],
+      "explanation": "Feminine nominative singular agreement: सुन्दरी बालिका."
+    },
+    {
+      "id": "ADJ-003",
+      "unit": "visheshana_visheshya",
+      "type": "multiple_choice",
+      "prompt": "Which adjective form agrees with पुष्पम्?",
+      "answer": "सुन्दरम्",
+      "options": [
+        "सुन्दरः",
+        "सुन्दरी",
+        "सुन्दरम्",
+        "सुन्दराः"
+      ],
+      "explanation": "Neuter nominative singular agreement: सुन्दरं पुष्पम्."
+    },
+    {
+      "id": "ADJ-004",
+      "unit": "visheshana_visheshya",
+      "type": "multiple_choice",
+      "prompt": "In नीलं पुष्पम्, which is the विशेषणम्?",
+      "answer": "नीलम्",
+      "options": [
+        "नीलम्",
+        "पुष्पम्",
+        "Both are verbs",
+        "Neither"
+      ],
+      "explanation": "नीलम् qualifies पुष्पम्."
+    },
+    {
+      "id": "ADJ-005",
+      "unit": "visheshana_visheshya",
+      "type": "multiple_choice",
+      "prompt": "Choose the agreeing adjective-noun pair.",
+      "answer": "सुन्दराणि पुष्पाणि",
+      "options": [
+        "सुन्दरः पुष्पम्",
+        "सुन्दरी बालकः",
+        "सुन्दराणि पुष्पाणि",
+        "सुन्दरः बालिका"
+      ],
+      "explanation": "Both words are neuter nominative plural."
+    },
+    {
+      "id": "KRD-001",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form is made from गम् + तुमुन्?",
+      "answer": "गन्तुम्",
+      "options": [
+        "गन्तुम्",
+        "गत्वा",
+        "गमति",
+        "गतः"
+      ],
+      "explanation": "The तुमुन् form of गम् is गन्तुम्."
+    },
+    {
+      "id": "KRD-002",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form is made from कृ + तुमुन्?",
+      "answer": "कर्तुम्",
+      "options": [
+        "कर्तुम्",
+        "कृत्वा",
+        "करोति",
+        "कृतः"
+      ],
+      "explanation": "The तुमुन् form of कृ is कर्तुम्."
+    },
+    {
+      "id": "KRD-003",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form is made from दृश् + तुमुन्?",
+      "answer": "द्रष्टुम्",
+      "options": [
+        "द्रष्टुम्",
+        "दृष्ट्वा",
+        "पश्यति",
+        "दृश्यते"
+      ],
+      "explanation": "The तुमुन् form of दृश् is द्रष्टुम्."
+    },
+    {
+      "id": "KRD-004",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form means 'having read'?",
+      "answer": "पठित्वा",
+      "options": [
+        "पठितुम्",
+        "पठित्वा",
+        "पठति",
+        "पठितः"
+      ],
+      "explanation": "पठित्वा is पठ् + क्त्वा."
+    },
+    {
+      "id": "KRD-005",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form means 'having done'?",
+      "answer": "कृत्वा",
+      "options": [
+        "कर्तुम्",
+        "कृत्वा",
+        "करोति",
+        "कृतः"
+      ],
+      "explanation": "कृत्वा is कृ + क्त्वा."
+    },
+    {
+      "id": "KRD-006",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which form means 'having gone'?",
+      "answer": "गत्वा",
+      "options": [
+        "गन्तुम्",
+        "गत्वा",
+        "गच्छति",
+        "गतः"
+      ],
+      "explanation": "गत्वा is गम् + क्त्वा."
+    },
+    {
+      "id": "KRD-007",
+      "unit": "kridanta",
+      "type": "multiple_choice",
+      "prompt": "Which प्रत्यय usually expresses a completed prior action in forms such as पठित्वा?",
+      "answer": "क्त्वा",
+      "options": [
+        "तुमुन्",
+        "क्त्वा",
+        "शप्",
+        "तिप्"
+      ],
+      "explanation": "क्त्वा is used for a prior action by the same subject in common constructions.",
+      "sutra": "3.4.21"
+    },
+    {
+      "id": "STR-001",
+      "unit": "stree_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "Which is the feminine form in the pair बालकः → ______?",
+      "answer": "बालिका",
+      "options": [
+        "बालकः",
+        "बालिका",
+        "बालकम्",
+        "बालकौ"
+      ],
+      "explanation": "बालिका is the feminine form."
+    },
+    {
+      "id": "STR-002",
+      "unit": "stree_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "Which प्रत्यय is named in अजाद्यतष्टाप्?",
+      "answer": "टाप्",
+      "options": [
+        "टाप्",
+        "तुमुन्",
+        "क्त्वा",
+        "शप्"
+      ],
+      "explanation": "This sūtra introduces टाप् for specified feminine formations.",
+      "sutra": "4.1.4"
+    },
+    {
+      "id": "STR-003",
+      "unit": "stree_pratyaya",
+      "type": "multiple_choice",
+      "prompt": "Which word is feminine?",
+      "answer": "लता",
+      "options": [
+        "बालकः",
+        "लता",
+        "पुष्पम्",
+        "फलम्"
+      ],
+      "explanation": "लता is feminine."
+    },
+    {
+      "id": "TAD-001",
+      "unit": "taddhita",
+      "type": "multiple_choice",
+      "prompt": "Taddhita affixes are generally added to which kind of base?",
+      "answer": "प्रातिपदिकम्",
+      "options": [
+        "धातुः",
+        "प्रातिपदिकम्",
+        "तिङ्-अन्तम्",
+        "विसर्गः"
+      ],
+      "explanation": "Taddhita affixes form nominal derivatives from nominal bases."
+    },
+    {
+      "id": "TAD-002",
+      "unit": "taddhita",
+      "type": "multiple_choice",
+      "prompt": "Which suffix type is typically added to a धातु?",
+      "answer": "कृत्",
+      "options": [
+        "तद्धित",
+        "कृत्",
+        "सुप्",
+        "विभक्ति"
+      ],
+      "explanation": "Kṛt affixes are added to verbal roots; taddhita affixes to nominal bases."
+    },
+    {
+      "id": "TAD-003",
+      "unit": "taddhita",
+      "type": "multiple_choice",
+      "prompt": "पाण्डवः is related by derivation to which base name?",
+      "answer": "पाण्डु",
+      "options": [
+        "पाण्डु",
+        "पठ्",
+        "गम्",
+        "राम"
+      ],
+      "explanation": "पाण्डव is a derivative associated with पाण्डु."
+    },
+    {
+      "id": "SAM-001",
+      "unit": "samasa_bonus",
+      "type": "multiple_choice",
+      "prompt": "What is the compound type of रामलक्ष्मणौ?",
+      "answer": "द्वन्द्वः",
+      "options": [
+        "तत्पुरुषः",
+        "बहुव्रीहिः",
+        "द्वन्द्वः",
+        "अव्ययीभावः"
+      ],
+      "explanation": "The compound joins two coordinate members."
+    },
+    {
+      "id": "SAM-002",
+      "unit": "samasa_bonus",
+      "type": "multiple_choice",
+      "prompt": "What is the compound type of राजपुरुषः in the sense 'the king's man'?",
+      "answer": "तत्पुरुषः",
+      "options": [
+        "तत्पुरुषः",
+        "बहुव्रीहिः",
+        "द्वन्द्वः",
+        "अव्ययीभावः"
+      ],
+      "explanation": "राज्ञः पुरुषः is a dependent relation."
+    },
+    {
+      "id": "SAM-003",
+      "unit": "samasa_bonus",
+      "type": "multiple_choice",
+      "prompt": "What is the compound type of यथाशक्ति?",
+      "answer": "अव्ययीभावः",
+      "options": [
+        "तत्पुरुषः",
+        "बहुव्रीहिः",
+        "द्वन्द्वः",
+        "अव्ययीभावः"
+      ],
+      "explanation": "यथाशक्ति functions as an indeclinable compound."
+    },
+    {
+      "id": "SAM-004",
+      "unit": "samasa_bonus",
+      "type": "multiple_choice",
+      "prompt": "In पीतम् अम्बरम् यस्य सः, what compound type is पीताम्बरः?",
+      "answer": "बहुव्रीहिः",
+      "options": [
+        "तत्पुरुषः",
+        "बहुव्रीहिः",
+        "द्वन्द्वः",
+        "अव्ययीभावः"
+      ],
+      "explanation": "The compound describes an external referent: one whose garment is yellow."
+    },
+    {
+      "id": "SM-001",
+      "unit": "sutra_memory",
+      "type": "match",
+      "prompt": "Match the sūtra number with its text.",
+      "answer": {
+        "1.1.1": "वृद्धिरादैच्",
+        "1.1.2": "अदेङ् गुणः",
+        "1.1.9": "तुल्यास्यप्रयत्नं सवर्णम्"
+      },
+      "explanation": "These are key early saṃjñā sūtras."
+    },
+    {
+      "id": "SM-002",
+      "unit": "sutra_memory",
+      "type": "multiple_choice",
+      "prompt": "Which sounds are called वृद्धि by 1.1.1 वृद्धिरादैच्?",
+      "answer": "आ, ऐ, औ",
+      "options": [
+        "अ, ए, ओ",
+        "आ, ऐ, औ",
+        "इ, उ, ऋ",
+        "य, व, र, ल"
+      ],
+      "explanation": "वृद्धि denotes आ, ऐ, औ.",
+      "sutra": "1.1.1"
+    },
+    {
+      "id": "SM-003",
+      "unit": "sutra_memory",
+      "type": "multiple_choice",
+      "prompt": "Which sounds are called गुण by 1.1.2 अदेङ् गुणः?",
+      "answer": "अ, ए, ओ",
+      "options": [
+        "आ, ऐ, औ",
+        "अ, ए, ओ",
+        "इ, उ, ऋ",
+        "य, व, र, ल"
+      ],
+      "explanation": "गुण denotes अ, ए, ओ.",
+      "sutra": "1.1.2"
+    },
+    {
+      "id": "SM-004",
+      "unit": "sutra_memory",
+      "type": "multiple_choice",
+      "prompt": "Which sūtra defines सवर्ण?",
+      "answer": "तुल्यास्यप्रयत्नं सवर्णम्",
+      "options": [
+        "वृद्धिरादैच्",
+        "अदेङ् गुणः",
+        "तुल्यास्यप्रयत्नं सवर्णम्",
+        "तस्य लोपः"
+      ],
+      "explanation": "This is sūtra 1.1.9.",
+      "sutra": "1.1.9"
+    }
+  ]
+}
