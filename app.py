@@ -15,21 +15,33 @@ from datetime import datetime, timezone
 st.set_page_config(page_title="🚩 卐 सर्वेश्वररत्न 卐 🚩", layout="centered",
                    initial_sidebar_state="collapsed")
 
-# ===================== CONFIG =====================
+# ============================================================
+# CONFIG
+# ============================================================
 BANK_PATH = "ashtadhyayi_question_bank.json"
 LOG_DIR = "logs"
 LOG_PATH = os.path.join(LOG_DIR, "rl_log.jsonl")
 
 POLICY_NAME = "thompson_target_difficulty"
-POLICY_VERSION = "1.0"
-TARGET_SUCCESS = 0.7        # aim for questions the learner gets right ~70% of the time
+POLICY_VERSION = "1.1"
+TARGET_SUCCESS = 0.7        # aim for questions answered correctly ~70% of the time
 MASTERY_MIN_ATTEMPTS = 3
 MASTERY_THRESHOLD = 0.6     # posterior mean needed to unlock the next unit
 MOVE_ON_ATTEMPTS = 8        # unlock the next unit anyway after this many tries
 PROPENSITY_SAMPLES = 500    # Monte Carlo samples to estimate P(action | state)
 MEMORIZE_SECONDS = 3
+SPEED_SECONDS = 60
 
-# ===================== TEXT =====================
+MODES = {
+    "adaptive": "🧠 अनुकूली / Adaptive (AI chooses questions)",
+    "practice": "🎯 अभ्यासः / Practice one unit",
+    "speed":    "⚡ त्वरा-क्रीडा / Speed round (60 s)",
+}
+DIFFICULTIES = ["easy", "medium", "hard"]
+
+# ============================================================
+# TEXT
+# ============================================================
 MSG = {
     "title": "🪶 सर्वेश्वररत्न-महेश्वरसूत्र-स्मरणक्रीडा ⚔️",
     "welcome": "स्वागतम्! महेश्वरसूत्राणां पाणिनीयव्याकरणस्य च अभ्यासे प्रवर्तस्व!",
@@ -37,7 +49,7 @@ MSG = {
         "१. स्मरणप्रश्नेषु अक्षराणि ३ सेकण्डपर्यन्तं पश्यतु।<br>"
         "२. एमोजी-रूपेण गूढेषु कार्डेषु समीचीनम् अक्षरं/सूत्रं चिनोतु।<br>"
         "३. व्याकरणप्रश्नेषु समीचीनम् उत्तरं चिनोतु वा लिखतु।<br>"
-        "४. त्रिभिः समीचीनैः उत्तरैः नूतनः स्तरः प्राप्यते।"
+        "४. प्रत्येकं विभागं साधयित्वा नूतनः स्तरः प्राप्यते।"
     ),
     "card_info": "एमोजी-रूपेण कार्डाः आवृताः सन्ति!",
     "memorize": "🧠 स्मरतु... ३ सेकण्डेषु कार्डाः गूढाः भविष्यन्ति",
@@ -62,6 +74,9 @@ EMOJI_CARDS = ["🦊","🐱","🫎","🦇","🦉","🐥","🐢","🪼","🐙","�
                "🔭","🔬","🙈","🙉","🙊"]
 COLOR_OPTIONS = ["#d63384", "#6f42c1", "#0d6efd", "#198754", "#fd7e14", "#dc3545"]
 
+# ============================================================
+# MAHEŚVARA SŪTRAS
+# ============================================================
 SUTRAS = [
     ["अ", "इ", "उ", "ण्"], ["ऋ", "ऌ", "क्"], ["ए", "ओ", "ङ्"], ["ऐ", "औ", "च्"],
     ["ह", "य", "व", "र", "ट्"], ["ल", "ण्"], ["ञ", "म", "ङ", "ण", "न", "म्"],
@@ -96,7 +111,9 @@ ARM_LABELS = {
     "sutra_memory": "सूत्रस्मरणम्",
 }
 
-# ===================== QUESTION BANK =====================
+# ============================================================
+# QUESTION BANK
+# ============================================================
 @st.cache_data
 def load_bank(path):
     with open(path, encoding="utf-8") as f:
@@ -111,13 +128,15 @@ BANK_BY_UNIT = {}
 for _q in BANK["questions"]:
     BANK_BY_UNIT.setdefault(_q["unit"], []).append(_q)
 
-# Arms of the bandit, in teaching (unlock) order
+# Bandit arms, in teaching (unlock) order
 ARMS = ["mahesvara_letter", "mahesvara_sutra"] + [u for u in BANK["units"] if u in BANK_BY_UNIT]
 
 def label(arm):
     return ARM_LABELS.get(arm, arm)
 
-# ===================== HELPERS =====================
+# ============================================================
+# HELPERS
+# ============================================================
 def to_text(x):
     if isinstance(x, list):
         return ", ".join(str(i) for i in x)
@@ -134,13 +153,17 @@ def norm(s):
 def num_options():
     return {"easy": 3, "medium": 4, "hard": 6}[st.session_state.difficulty]
 
-# ===================== SESSION STATE =====================
+# ============================================================
+# SESSION STATE
+# ============================================================
 def init_state():
     defaults = {
         "stage": "start", "player_id": "", "consent": False,
         "session_id": str(uuid.uuid4()), "step": 0,
         "score": 0, "level": 1, "streak": 0, "max_streak": 0,
         "difficulty": "medium",
+        "mode": "adaptive", "practice_unit": "mahesvara_letter",
+        "round_end": None, "round_start_step": 0, "flash": None,
         "bandit": {arm: [1, 1] for arm in ARMS},   # Beta(alpha, beta) per arm
         "recent_ids": [], "recent_results": [],
         "q": None, "phase": None, "result": None, "question_start": None,
@@ -152,7 +175,8 @@ def init_state():
             st.session_state[k] = v
 
 def reset_game():
-    keep = {k: st.session_state.get(k) for k in ("player_id", "consent", "difficulty")}
+    keep = {k: st.session_state.get(k)
+            for k in ("player_id", "consent", "difficulty", "mode", "practice_unit")}
     for k in list(st.session_state.keys()):
         del st.session_state[k]
     init_state()
@@ -160,7 +184,9 @@ def reset_game():
         st.session_state[k] = v
     st.rerun()
 
-# ===================== BANDIT POLICY =====================
+# ============================================================
+# BANDIT POLICY
+# ============================================================
 def attempts(arm):
     a, b = st.session_state.bandit[arm]
     return a + b - 2
@@ -187,12 +213,13 @@ def thompson_pick(bandit, arms):
     return min(samples, key=lambda a: abs(samples[a] - TARGET_SUCCESS))
 
 def choose_arm():
-    bandit = st.session_state.bandit
+    ss = st.session_state
     arms = unlocked_arms()
-    chosen = thompson_pick(bandit, arms)
-    hits = sum(thompson_pick(bandit, arms) == chosen for _ in range(PROPENSITY_SAMPLES))
-    propensity = max(hits, 1) / PROPENSITY_SAMPLES
-    return chosen, propensity, arms
+    if ss.mode == "practice":
+        return ss.practice_unit, 1.0, arms          # learner's choice, not the policy's
+    chosen = thompson_pick(ss.bandit, arms)
+    hits = sum(thompson_pick(ss.bandit, arms) == chosen for _ in range(PROPENSITY_SAMPLES))
+    return chosen, max(hits, 1) / PROPENSITY_SAMPLES, arms
 
 def snapshot_state(arms):
     ss = st.session_state
@@ -206,7 +233,9 @@ def snapshot_state(arms):
         "step": ss.step,
     }
 
-# ===================== QUESTION BUILDERS =====================
+# ============================================================
+# QUESTION BUILDERS
+# ============================================================
 def make_letter_question():
     direction = random.choice(["forward", "reverse"])
     if direction == "forward":
@@ -295,6 +324,8 @@ def next_question():
     else:
         q = make_bank_question(arm)
     q.update(arm=arm, propensity=propensity, state_before=state_before)
+    if ss.mode == "speed" and q["qtype"] == "memory_mc":
+        q["qtype"] = "mc"        # no 3-second memorize phase in a speed round
     ss.q = q
     ss.step += 1
     ss.result = None
@@ -307,7 +338,9 @@ def next_question():
         ss.phase = "answer"
         ss.question_start = time.time()
 
-# ===================== CHECKING & LOGGING =====================
+# ============================================================
+# CHECKING & LOGGING
+# ============================================================
 def check(q, response):
     t = q["qtype"]
     if t in ("mc", "memory_mc"):
@@ -321,6 +354,7 @@ def check(q, response):
     return norm(response) == norm(q["answer"])  # fill
 
 def write_log(record):
+    # On Streamlit Cloud this folder is wiped on restart: swap for a database insert in production.
     os.makedirs(LOG_DIR, exist_ok=True)
     with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -332,28 +366,31 @@ def submit(response):
     rt = round(time.time() - ss.question_start, 2) if ss.question_start else None
     arm = q["arm"]
 
-    # Bandit update (the "learning" step of the policy)
+    # Bandit update (the policy's learning step)
     ss.bandit[arm][0 if correct else 1] += 1
     ss.recent_results.append(int(correct))
 
-    level_up = False
     if correct:
         ss.score += 1
         ss.streak += 1
         ss.max_streak = max(ss.max_streak, ss.streak)
-        if ss.score % 3 == 0:
-            ss.level += 1
-            level_up = True
     else:
         ss.streak = 0
 
+    # Level = number of units unlocked through mastery
+    new_level = len(unlocked_arms())
+    level_up = new_level > ss.level
+    ss.level = new_level
+
     record = {
-        "schema_version": 1,
+        "schema_version": 2,
         "session_id": ss.session_id,
         "player_id": ss.player_id or "anon",
         "step": ss.step,
         "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "policy": POLICY_NAME, "policy_version": POLICY_VERSION,
+        "mode": ss.mode,
+        "policy": POLICY_NAME if ss.mode != "practice" else "user_choice",
+        "policy_version": POLICY_VERSION,
         "target_success": TARGET_SUCCESS,
         "difficulty": ss.difficulty,
         "state": q["state_before"],                       # s
@@ -378,11 +415,16 @@ def submit(response):
     if ss.consent:
         write_log(record)
 
+    if ss.mode == "speed":
+        ss.flash = (correct, "✅" if correct else f"❌ {to_text(q['answer'])}")
+        next_question()
+        st.rerun()
+
     ss.result = {"correct": correct, "level_up": level_up, "celebrated": False}
     ss.phase = "feedback"
     st.rerun()
 
-CSV_FIELDS = ["session_id", "player_id", "step", "timestamp", "policy", "difficulty",
+CSV_FIELDS = ["session_id", "player_id", "step", "timestamp", "mode", "policy", "difficulty",
               "arm", "question_id", "question_type", "propensity", "n_unlocked",
               "arm_alpha_before", "arm_beta_before", "recent_accuracy", "streak_before",
               "reward", "response_time_sec", "response", "correct_answer", "direction"]
@@ -392,8 +434,9 @@ def flatten(r):
     a, b = r["state"]["posterior"][arm]
     return {
         "session_id": r["session_id"], "player_id": r["player_id"], "step": r["step"],
-        "timestamp": r["timestamp"], "policy": r["policy"], "difficulty": r["difficulty"],
-        "arm": arm, "question_id": r["action"]["question_id"],
+        "timestamp": r["timestamp"], "mode": r.get("mode"), "policy": r["policy"],
+        "difficulty": r["difficulty"], "arm": arm,
+        "question_id": r["action"]["question_id"],
         "question_type": r["action"]["question_type"],
         "propensity": r["action"]["propensity"], "n_unlocked": r["action"]["n_unlocked"],
         "arm_alpha_before": a, "arm_beta_before": b,
@@ -420,7 +463,9 @@ def get_admin_key():
     except Exception:
         return None
 
-# ===================== UI =====================
+# ============================================================
+# UI
+# ============================================================
 def inject_css(color):
     st.markdown(f"""
 <style>
@@ -444,14 +489,22 @@ def inject_css(color):
 def render_header():
     ss = st.session_state
     badge = {"easy": "#28a745", "medium": "#fd7e14", "hard": "#dc3545"}[ss.difficulty]
-    st.markdown(f"### 🌟 स्तरः {ss.level} <span class='badge' style='background:{badge}'>"
-                f"{ss.difficulty.upper()}</span>", unsafe_allow_html=True)
-    progress = (ss.score % 3) / 3 * 100
+    st.markdown(f"### 🌟 स्तरः {ss.level} / {len(ARMS)} <span class='badge' "
+                f"style='background:{badge}'>{ss.difficulty.upper()}</span>",
+                unsafe_allow_html=True)
+    st.caption(MODES[ss.mode])
+
+    unlocked = unlocked_arms()
+    frontier = unlocked[-1]
+    progress = 100 * min(attempts(frontier) / MASTERY_MIN_ATTEMPTS, 1) * \
+               min(posterior_mean(frontier) / MASTERY_THRESHOLD, 1)
     st.markdown(
-        f"<div class='progress-bar'><div class='progress' style='width:{progress}%'></div></div>"
+        f"<div class='progress-bar'><div class='progress' style='width:{progress:.0f}%'></div></div>"
         f"<div style='font-size:20px; color:#28a745; font-weight:bold; margin-bottom:8px;'>"
         f"अङ्काः: {ss.score} | अनुक्रमः: {ss.streak} (उच्चतमः: {ss.max_streak})</div>",
         unsafe_allow_html=True)
+    if len(unlocked) < len(ARMS):
+        st.caption(f"🔓 अग्रिमः विभागः: {label(ARMS[len(unlocked)])}")
 
 def render_question_box(q):
     text = html.escape(q["prompt"])
@@ -510,7 +563,8 @@ def render_answer(q):
             submit(text)
 
 def render_feedback(q):
-    res = st.session_state.result
+    ss = st.session_state
+    res = ss.result
     if res["correct"]:
         st.success(f"🎉 {MSG['correct']}")
     else:
@@ -522,9 +576,24 @@ def render_feedback(q):
         st.info(note)
     if res["level_up"] and not res["celebrated"]:
         st.balloons()
-        st.success(f"🏅 {MSG['level_up']}")
+        st.success(f"🏅 {MSG['level_up']} 🔓 {label(ARMS[ss.level - 1])}")
         res["celebrated"] = True
     if st.button(MSG["next"], type="primary", use_container_width=True):
+        next_question()
+        st.rerun()
+
+def show_speed_results():
+    ss = st.session_state
+    rnd = [r for r in ss.session_log if r["step"] > ss.round_start_step]
+    right = sum(r["reward"] for r in rnd)
+    st.header("⚡ समयः समाप्तः!")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("उत्तराणि / Answered", len(rnd))
+    c2.metric("समीचीनानि / Correct", right)
+    c3.metric("सटीकता / Accuracy", f"{100 * right / len(rnd):.0f}%" if rnd else "–")
+    if st.button("⚡ पुनः / Play again", type="primary", use_container_width=True):
+        ss.round_end = time.time() + SPEED_SECONDS
+        ss.round_start_step = ss.step
         next_question()
         st.rerun()
 
@@ -532,8 +601,8 @@ def render_sidebar():
     ss = st.session_state
     with st.sidebar:
         st.markdown("### ⚙️ सेटिङ्ग्स्")
-        levels = ["easy", "medium", "hard"]
-        ss.difficulty = st.selectbox("कठिनतास्तरः", levels, index=levels.index(ss.difficulty),
+        ss.difficulty = st.selectbox("कठिनतास्तरः", DIFFICULTIES,
+                                     index=DIFFICULTIES.index(ss.difficulty),
                                      help="Applies from the next question.")
 
         st.markdown("### 📈 प्रगतिः")
@@ -546,12 +615,11 @@ def render_sidebar():
 
         if ss.session_log:
             st.markdown("### 📥 मम परिणामाः")
+            name = f"{ss.player_id or 'anon'}_{ss.session_id[:8]}"
             st.download_button("CSV", to_csv_bytes(ss.session_log),
-                               file_name=f"{ss.player_id or 'anon'}_{ss.session_id[:8]}.csv",
-                               mime="text/csv")
+                               file_name=f"{name}.csv", mime="text/csv")
             st.download_button("JSONL (RL)", to_jsonl_bytes(ss.session_log),
-                               file_name=f"{ss.player_id or 'anon'}_{ss.session_id[:8]}.jsonl",
-                               mime="application/json")
+                               file_name=f"{name}.jsonl", mime="application/json")
 
         admin_key = get_admin_key()
         if admin_key:
@@ -578,8 +646,13 @@ def show_start_page():
 
     pid = st.text_input("Player ID (optional, e.g. P01)", value=ss.player_id)
     consent = st.checkbox(MSG["consent"], value=ss.consent)
-    levels = ["easy", "medium", "hard"]
-    diff = st.selectbox("कठिनतास्तरः", levels, index=levels.index(ss.difficulty))
+    diff = st.selectbox("कठिनतास्तरः", DIFFICULTIES, index=DIFFICULTIES.index(ss.difficulty))
+    mode = st.radio("क्रीडाप्रकारः / Mode", list(MODES), format_func=MODES.get,
+                    index=list(MODES).index(ss.mode))
+    unit = ss.practice_unit
+    if mode == "practice":
+        unit = st.selectbox("विभागः / Unit", ARMS, format_func=label,
+                            index=ARMS.index(ss.practice_unit))
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -587,6 +660,11 @@ def show_start_page():
             ss.player_id = pid.strip()
             ss.consent = consent
             ss.difficulty = diff
+            ss.mode = mode
+            ss.practice_unit = unit
+            if mode == "speed":
+                ss.round_end = time.time() + SPEED_SECONDS
+                ss.round_start_step = ss.step
             ss.stage = "game"
             next_question()
             st.rerun()
@@ -595,10 +673,21 @@ def show_game_page():
     ss = st.session_state
     if ss.q is None:
         next_question()
-    render_sidebar()            # draw sidebar first so it stays usable during the 3-second wait
+    render_sidebar()            # drawn first so it stays usable during the 3-second wait
     inject_css(ss.color)
     st.title(MSG["title"])
     render_header()
+
+    if ss.mode == "speed":
+        remaining = int(ss.round_end - time.time())
+        if remaining <= 0:
+            show_speed_results()
+            return
+        st.caption(f"⏱️ {remaining} s")
+        if ss.flash:
+            (st.success if ss.flash[0] else st.error)(ss.flash[1])
+            ss.flash = None
+
     q = ss.q
     st.caption(f"📚 {label(q['arm'])}")
     render_question_box(q)
@@ -609,7 +698,9 @@ def show_game_page():
     else:
         render_feedback(q)
 
-# ===================== MAIN =====================
+# ============================================================
+# MAIN
+# ============================================================
 init_state()
 if st.session_state.stage == "start":
     show_start_page()
